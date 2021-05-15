@@ -1,0 +1,14 @@
+create table `product` (
+    `idx` int(12) NOT NULL,
+    `product_name` varchar(255) NOT NULL,
+    `product_price` int(255) NOT NULL,
+    `product_type` varchar(255) NOT NULL,
+    `product_keyword` text NOT NULL,
+    `shop_id` int(12) NOT NULL,
+    `product_init_time` datetime NOT NULL,
+    `product_time` datetime NOT NULL,
+    `deny` tinyInt default null,
+    `etc` text default NULL,
+    `des` text default NULL,
+    `product_log` text default NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

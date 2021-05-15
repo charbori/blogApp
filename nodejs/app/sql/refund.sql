@@ -1,0 +1,14 @@
+create table `refund` (
+    `idx` int(12) NOT NULL,
+    `refund_type` varchar(255) NOT NULL,
+    `refund_init_time` varchar(255) NOT NULL,
+    `refund_time` varchar(255) NOT NULL,
+    `refund_status` varchar(255) NOT NULL,
+    `order_id` int(12) NOT NULL,
+    `user_id` int(12) NOT NULL,
+    `shop_id` int(12) NOT NULL,
+    `delivery_id` int(12) NOT NULL,
+    `deny` tinyInt default null,
+    `etc` text default NULL,
+    `des` text default NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

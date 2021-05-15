@@ -1,0 +1,14 @@
+create table `cart` (
+    `idx` int(12) NOT NULL,
+    `cart_manager_id` varchar(255) NOT NULL,
+    `cart_name` varchar(255) NOT NULL,
+    `product_id` int(12) NOT NULL,
+    `user_id` int(12) NOT NULL,
+    `shop_id` int(12) NOT NULL,
+    `cart_init_time` datetime NOT NULL,
+    `cart_time` datetime NOT NULL,
+    `deny` tinyInt default null,
+    `etc` text default NULL,
+    `des` text default NULL,
+    `cart_log` text default NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

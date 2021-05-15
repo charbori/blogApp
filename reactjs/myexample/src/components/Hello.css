@@ -1,0 +1,12 @@
+body {
+    font-size: 12px;
+    font-style: normal;
+    font-weight: bold;
+}
+
+.content-name {
+    margin  : 10px;
+    padding : 10px;
+    border-radius: 30px;
+    border : 2px dashed #dcdcdc;
+}

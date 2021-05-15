@@ -1,0 +1,6 @@
+.ColorListWrapper {
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: nowrap;
+    height: 12px;
+}
