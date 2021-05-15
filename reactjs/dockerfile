@@ -1,0 +1,6 @@
+FROM node:alpine
+WORKDIR /app
+COPY ./myexample ./myexample
+WORKDIR /app/myexample
+RUN npm install
+CMD ["npm", "run", "start"]
