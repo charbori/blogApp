@@ -2,5 +2,7 @@ mongodb/data
 mongodb/etc
 mysql
 reactjs/myexample/node_modules
+reactjs/myexample/package-lock.json
+*.lock
 nodejs/app/node_modules
 nodejs/app/compiles
