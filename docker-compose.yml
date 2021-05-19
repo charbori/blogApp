@@ -29,7 +29,6 @@ services:
             - "8889:8889"
         links:
             - mongo-container
-            - mysql-container
         volumes:
             - "$PWD/reactjs:/app"
             - "/app/myexample/node_modules"
@@ -50,10 +49,8 @@ services:
         image: charbori/nodejs_dev:1.0
         links:
             - mongo-container
-            - mysql-container
         depends_on:
             - mongo-container
-            - mysql-container
             - reactjs
         environment:
             ME_CONFIG_MONGODB_ADMINUSERNAME: root
@@ -78,7 +75,6 @@ services:
             - "33333:33333"
         depends_on:
             - mongo-container
-            - mysql-container
             - reactjs
             - nodejs
 networks:
