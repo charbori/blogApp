@@ -47,12 +47,12 @@ services:
                 ipv4_address: 172.16.0.15
         ports:
             - "8889:8889"
-        image: charbori/reactjs_dev:1.0
         links:
             - mongo-container
             - mysql-container
         volumes:
             - "$PWD/reactjs:/app"
+            - "/app/myexample/node_modules"
     nodejs:
         build:
             context: ./nodejs
