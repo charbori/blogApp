@@ -15,26 +15,6 @@ services:
             - MONGO_INITDB_DATABASE=chatApp
         volumes:
             - "$PWD/mongodb/mongo-entrypoint/:/docker-entrypoint-initdb.d/"
-    mysql-container:
-        container_name: mysql-db
-        networks:
-            clusternetwork:
-                ipv4_address: 172.16.0.10
-        image: mysql:5.7
-        ports:
-            - "3306:3306"
-        environment:
-            - MYSQL_ROOT_PASSWORD=mysql-db
-            - MYSQL_USER=user
-            - MYSQL_PASSWORD=mysql-db
-            - MYSQL_DATABASE=chatApp
-            - TZ=Asia/Seoul
-        command:
-            - --default-authentication-plugin=mysql_native_password
-            - --character-set-server=utf8mb4
-            - --collation-server=utf8mb4_unicode_ci
-        volumes:
-            - "$PWD/mysql:/var/lib/mysql"
     reactjs:
         container_name: reactjs
         build:
@@ -92,7 +72,7 @@ services:
             clusternetwork:
                 ipv4_address: 172.16.0.16
         image: charbori/nginx_dev:1.0
-        ports: 
+        ports:
             - "80:80"
             - "1338:1338"
             - "33333:33333"
