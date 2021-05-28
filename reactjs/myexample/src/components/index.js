@@ -12,3 +12,4 @@ export { default as Hello } from './Hello';
 export { default as Answer } from './Answer';
 export { default as LoginForm } from './LoginForm';
 export { default as UseFriendStatus } from './UseFriendStatus';
+export { default as Sample } from './Sample';
