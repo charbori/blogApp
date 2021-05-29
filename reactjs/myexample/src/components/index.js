@@ -1,6 +1,5 @@
 // component 폴더 별로 파일 목록이 필요하다
 export { default as Menu } from './Menu';
-export { default as Profile } from './Profile';
 export { default as TodoListTemplate } from './TodoListTemplate';
 export { default as Form } from './Form';
 export { default as TodoItem } from './TodoItem';
