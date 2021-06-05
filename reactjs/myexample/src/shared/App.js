@@ -16,16 +16,13 @@ class App extends Component {
                 <Route path="/todoList" component={TodoList}/>
                 <Route path="/myPageApp" component={MyPageApp}/>
                 <Route path="/hello" component={Hello}/>
-<<<<<<< HEAD
                 <Route path="/login" component={Login}/>
                 <Route path="/sample" component={Sample}/>
-=======
                 <Route path="/Sample" component={Sample}/>
                 <Route path="/examples/landing-page" component={Landing}/>
                 <Route path="/examples/profile-page" component={Profile}/>
                 <Route path="/examples/login-page" component={Login}/>
                 <Route path="/examples/register-page" component={Register}/>
->>>>>>> a62583ab779dfd3a84dff6731a4afd4200cd2674
             </div>
         );
     };
