@@ -8,3 +8,4 @@ export { default as TodoList } from './TodoList';
 export { default as Pallete } from './Pallete';
 export { default as MyPageApp } from './MyPageApp';
 export { default as Counter } from './Counter';
+export { default as Sample } from './Sample';

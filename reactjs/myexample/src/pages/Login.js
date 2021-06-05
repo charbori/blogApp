@@ -1,7 +1,7 @@
 import React, { Component, useState } from 'react';
 import { Link, Route } from 'react-router-dom';
-import { Profile, UseFriendStatus } from 'components';
-import { AuthRoute, signIn } from 'lib';
+import { Profile, UseFriendStatus } from '@/components';
+import { AuthRoute, signIn } from '@/lib';
 
 function Login() {
     const [user, setUser] = useState(null);

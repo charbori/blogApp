@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Form, TodoListTemplate, TodoItemList }  from 'components';
-import { Pallete } from 'pages';
+import { Form, TodoListTemplate, TodoItemList }  from '@/components';
+import { Pallete } from '@/pages';
 class TodoList extends Component {
     id = 1 // 이미 0이 존재함
 

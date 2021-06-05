@@ -1,20 +1,6 @@
 version: '3.3'
 
 services:
-    mongo-container:
-        container_name: mongo-db
-        networks:
-            clusternetwork:
-                ipv4_address: 172.16.0.13
-        image: mongo:latest
-        ports:
-            - "27017:27017"
-        environment:
-            - MONGO_INITDB_ROOT_USERNAME=root
-            - MONGO_INITDB_ROOT_PASSWORD=mongo-db
-            - MONGO_INITDB_DATABASE=chatApp
-        volumes:
-            - "$PWD/mongodb/mongo-entrypoint/:/docker-entrypoint-initdb.d/"
     reactjs:
         container_name: reactjs
         build:
@@ -22,16 +8,13 @@ services:
             dockerfile: Dockerfile
             args:
                 buildno: 1
-        networks:
-            clusternetwork:
-                ipv4_address: 172.16.0.15
         ports:
             - "8889:8889"
-        links:
-            - mongo-container
         volumes:
             - "$PWD/reactjs:/app"
             - "/app/myexample/node_modules"
+        networks:
+            - our_net
     nodejs:
         build:
             context: ./nodejs
@@ -39,25 +22,18 @@ services:
             args:
                 buildno: 1
         container_name: nodejs
-        networks:
-            clusternetwork:
-                ipv4_address: 172.16.0.14
         ports:
             - "443:443"
             - "1337:1337"
             - "8888:8888"
-        image: charbori/nodejs_dev:1.0
-        links:
-            - mongo-container
         depends_on:
-            - mongo-container
             - reactjs
-        environment:
-            ME_CONFIG_MONGODB_ADMINUSERNAME: root
-            ME_CONFIG_MONGODB_ADMINPASSWORD: mongo-db
         volumes:
             - "$PWD/nodejs/app:/app"
             - "$PWD/nodejs/mysql:/var/lib/mysql"
+            - "/app/node_modules"
+        networks:
+            - our_net
     nginx:
         build:
             context: ./nginx
@@ -65,26 +41,15 @@ services:
             args:
                 buildno: 1
         container_name: nginx
-        networks:
-            clusternetwork:
-                ipv4_address: 172.16.0.16
-        image: charbori/nginx_dev:1.0
         ports:
             - "80:80"
             - "1338:1338"
             - "33333:33333"
         depends_on:
-            - mongo-container
             - reactjs
             - nodejs
+        networks:
+            - our_net
 networks:
-    clusternetwork:
+    our_net:
         driver: bridge
-        ipam:
-            driver: default
-            config:
-                - subnet: 172.16.0.0/24
-              #networks:
-              #default:
-              #external:
-              #name: demo-network

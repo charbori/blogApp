@@ -1,0 +1,9 @@
+FROM node:16.2.0
+WORKDIR /app
+
+ENV PATH /app/node_modules/.bin:$PATH
+
+COPY ./app .
+RUN npm install --save
+RUN gulp default
+CMD ["npm", "run", "dev"]

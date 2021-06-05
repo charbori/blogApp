@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { MyName, MyIcon } from 'components';
-import { Counter } from 'pages';
+import { MyName, MyIcon } from '@/components';
+import { Counter } from '@/pages';
 
 class MyPageApp extends Component {
     render() {

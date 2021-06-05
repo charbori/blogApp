@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TodoItem, TodoListTemplate } from 'components';
+import { TodoItem, TodoListTemplate } from '@/components';
 
 class TodoItemList extends Component {
     shouldComponentUpdate(nextProps, nextState) {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ColorItem } from 'components';
+import { ColorItem } from '@/components';
 import './Pallete.css';
 
 class Pallete extends Component {

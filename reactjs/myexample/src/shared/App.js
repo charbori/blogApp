@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Home, About, Post, Posts, TodoList, MyPageApp, Login } from 'pages';
-import { Menu, Hello } from 'components';
+import { Home, About, Post, Posts, TodoList, MyPageApp, Login, Sample } from '@/pages';
+import { Menu, Hello } from '@/components';
 
 class App extends Component {
     render() {
@@ -17,6 +17,7 @@ class App extends Component {
                 <Route path="/myPageApp" component={MyPageApp}/>
                 <Route path="/hello" component={Hello}/>
                 <Route path="/login" component={Login}/>
+                <Route path="/sample" component={Sample}/>
             </div>
         );
     };

@@ -1,6 +1,6 @@
 import React from 'react';
 import './Hello.css';
-import { Answer } from 'components';
+import { Answer } from '@/components';
 
 function Hello() {
     const name = 'name';
