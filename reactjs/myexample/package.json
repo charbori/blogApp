@@ -34,7 +34,8 @@
 	"reactstrap": "8.9.0"
   },
   "scripts": {
-    "start": "npx webpack serve --mode development"
+	"build": "webpack serve --mode production",
+    "start": "webpack serve --mode development --open --hot"
   },
   "author": "",
   "license": "ISC",

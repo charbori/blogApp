@@ -14,7 +14,8 @@ services:
             - "$PWD/reactjs:/app"
             - "/app/myexample/node_modules"
         networks:
-            - our_net
+            clusternetwork:
+                ipv4_address: 172.16.0.14
     nodejs:
         build:
             context: ./nodejs
@@ -33,7 +34,8 @@ services:
             - "$PWD/nodejs/mysql:/var/lib/mysql"
             - "/app/node_modules"
         networks:
-            - our_net
+            clusternetwork:
+                ipv4_address: 172.16.0.15
     nginx:
         build:
             context: ./nginx
@@ -49,7 +51,12 @@ services:
             - reactjs
             - nodejs
         networks:
-            - our_net
+            clusternetwork:
+                ipv4_address: 172.16.0.16
 networks:
-    our_net:
+    clusternetwork:
         driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.16.0.0/24

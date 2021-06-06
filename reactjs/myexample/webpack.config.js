@@ -1,13 +1,12 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const srcDir = path.resolve(__dirname, './src');
-const ENTRY_FILE = path.resolve(__dirname, "src", "index.js");
 const publicDir = path.resolve(__dirname, './public');
 
 module.exports = {
 	name: 'blogApp',
 	mode: 'development',
-	entry: ENTRY_FILE,
+	entry: './src/index.js',
 	module: {
 		rules: [
 			{
@@ -40,19 +39,15 @@ module.exports = {
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
-			template: publicDir + '/index.html',
-			filename: './index.html',
-			favicon: './assets/favicon.ico'
+			template: 'public/index.html',
 		})
 	],
 	devServer: {
-		contentBase: path.join(__dirname, 'dist'),
-		compress: true,
-		host: "0.0.0.0",
-		port: 8889
+		host: '172.16.0.14',
+		port: 8889,
+		open: true
 	},
 	output: {
-		path: path.join(__dirname, 'dist'),
-	    filename: 'index.js'
+	    filename: 'bundle.[hash].js'
 	}
 };

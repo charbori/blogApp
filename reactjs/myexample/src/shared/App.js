@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Home, About, Post, Posts, TodoList, MyPageApp, Login, Sample } from '@/pages';
+import { Home, About, Post, Posts, TodoList, MyPageApp, Sample } from '@/pages';
 import { Menu, Hello } from '@/components';
+import { Landing, Profile, Login, Register } from '@/examples';
 
 class App extends Component {
     render() {
