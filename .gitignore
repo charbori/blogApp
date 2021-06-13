@@ -7,3 +7,4 @@ reactjs/myexample/package-lock.json
 nodejs/app/node_modules
 nodejs/app/compiles
 nodejs/app/nodeApi/mysqlConnect.js
+nodejs/app/env
