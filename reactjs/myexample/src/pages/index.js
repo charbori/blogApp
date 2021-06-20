@@ -8,3 +8,6 @@ export { default as Pallete } from './Pallete';
 export { default as MyPageApp } from './MyPageApp';
 export { default as Counter } from './Counter';
 export { default as Sample } from './Sample';
+export { default as Board } from './Board';
+export { default as Prepare } from './Prepare';
+export { default as TaskList } from './TaskList';

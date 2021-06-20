@@ -9,9 +9,22 @@ router.get('/findUser', function(req, res) {
         }
         console.log(results);
     });
-    
-    db.end();
 });
 
+router.get('/post', function(req, res) {
+    var sql =   "SELECT * \
+                   FROM post \
+                  WHERE hide='0' \
+                    AND ban='0' \
+               ORDER BY reg_date asc \
+                  LIMIT 30";
+    db.query(sql, function (error, results, fields) {
+        if (error) {
+            console.log(error);
+        }
+        var result_data = JSON.stringify({ success: true, data: results });
+        res.send(result_data);
+    });
+});
 
 module.exports = router;

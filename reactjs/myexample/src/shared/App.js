@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Home, About, Post, Posts, TodoList, MyPageApp, Sample } from '@/pages';
+import { Home, About, Post, Posts, TodoList, MyPageApp, Sample, Board } from '@/pages';
 import { Menu, Hello } from '@/components';
 import { Landing, Profile, Login, Register } from '@/examples';
+import { Logs } from '@/admin';
 
 class App extends Component {
     render() {
@@ -24,6 +25,8 @@ class App extends Component {
                 <Route path="/examples/profile-page" component={Profile}/>
                 <Route path="/examples/login-page" component={Login}/>
                 <Route path="/examples/register-page" component={Register}/>
+                <Route path="/Board" component={Board}/>
+                <Route path="/Logs" component={Logs}/>
             </div>
         );
     };

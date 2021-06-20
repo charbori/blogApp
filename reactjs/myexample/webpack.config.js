@@ -4,7 +4,7 @@ const srcDir = path.resolve(__dirname, './src');
 const publicDir = path.resolve(__dirname, './public');
 
 module.exports = {
-	name: 'blogApp',
+	name: 'myexample',
 	mode: 'development',
 	entry: './src/index.js',
 	module: {
@@ -45,7 +45,8 @@ module.exports = {
 	devServer: {
 		host: '172.16.0.14',
 		port: 8889,
-		open: true
+		open: true,
+		disableHostCheck: true
 	},
 	output: {
 	    filename: 'bundle.[hash].js'

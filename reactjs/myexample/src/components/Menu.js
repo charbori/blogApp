@@ -19,6 +19,8 @@ const Menu = () => {
                 <li><NavLink to="/myPageApp" activeStyle={activeStyle}>MyPage</NavLink></li>
                 <li><NavLink to="/hello" activeStyle={activeStyle}>Hello</NavLink></li>
                 <li><NavLink to="/Sample" activeStyle={activeStyle}>Sample</NavLink></li>
+                <li><NavLink to="/Board" activeStyle={activeStyle}>Board</NavLink></li>
+                <li><NavLink to="/Logs" activeStyle={activeStyle}>Logs</NavLink></li>
             </ul>
             <hr/>
         </div>
