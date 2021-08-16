@@ -1,0 +1,22 @@
+span.mgr-10 {
+    margin-right: 10px;
+}
+span.mgl-10 {
+    margin-left: 10px;
+}
+span.pad-6 {
+    padding-left: 6px;
+}
+
+span.ft-text-sm {
+    height: 100%;
+    font-size: 15px;
+    font-weight: bold;
+    vertical-align: top;
+    text-transform: capitalize;
+    color: #525f7f;
+}
+
+span.txt-vert-center {
+    display:inline-block;
+}

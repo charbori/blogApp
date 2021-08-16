@@ -10,10 +10,9 @@ const Menu = () => {
     return (
         <div>
             <ul>
-                <li><NavLink exact to="/" activeStyle={activeStyle}>Home</NavLink></li>
-                <li><NavLink exact to="/about" activeStyle={activeStyle}>About</NavLink></li>
+                <li><NavLink to="/" activeStyle={activeStyle}>AppTestPage</NavLink></li>
+                <li><NavLink to="/about" activeStyle={activeStyle}>About</NavLink></li>
                 <li><NavLink to="/about/foo" activeStyle={activeStyle}>About Foo</NavLink></li>
-                <li><NavLink to="/posts" activeStyle={activeStyle}>Go Post</NavLink></li>
                 <li><NavLink to="/login" activeStyle={activeStyle}>Login</NavLink></li>
                 <li><NavLink to="/todoList" activeStyle={activeStyle}>TodoList</NavLink></li>
                 <li><NavLink to="/myPageApp" activeStyle={activeStyle}>MyPage</NavLink></li>
@@ -21,8 +20,8 @@ const Menu = () => {
                 <li><NavLink to="/Sample" activeStyle={activeStyle}>Sample</NavLink></li>
                 <li><NavLink to="/Board" activeStyle={activeStyle}>Board</NavLink></li>
                 <li><NavLink to="/Logs" activeStyle={activeStyle}>Logs</NavLink></li>
+                <li><NavLink to="/Home" activeStyle={activeStyle}>Home</NavLink></li>
             </ul>
-            <hr/>
         </div>
     );
 };

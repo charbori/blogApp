@@ -1,1 +1,23 @@
-
+CREATE TABLE `post` (
+  `idx` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL DEFAULT 'no title',
+  `contents` text,
+  `reg_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ip_address` varchar(17) NOT NULL DEFAULT '0.0.0.0',
+  `ip_address_mod` varchar(17) NOT NULL DEFAULT '0.0.0.0',
+  `alarm` tinyint(1) NOT NULL DEFAULT '0',
+  `hide` tinyint(1) NOT NULL DEFAULT '0',
+  `user_id` int NOT NULL,
+  `ban` tinyint(1) NOT NULL DEFAULT '0',
+  `post_count` int NOT NULL DEFAULT '0',
+  `post_like` int NOT NULL DEFAULT '0',
+  `post_type` tinyint NOT NULL DEFAULT '0',
+  `etc` int NOT NULL DEFAULT '0',
+  `des` text,
+  `admin_memo` text,
+  `filter` tinyint(1) NOT NULL DEFAULT '0',
+  `code` int NOT NULL DEFAULT '0',
+  `xcode` int NOT NULL DEFAULT '0',
+  `scode` int NOT NULL DEFAULT '0',
+  PRIMARY KEY (`idx`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8

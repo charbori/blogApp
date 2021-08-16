@@ -1,0 +1,34 @@
+.header-global {
+
+}
+
+#navbar-main { position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #172b4d;
+    height : 48px;
+    margin-bottom: 24px;
+    transition: top 0.2s ease-in-out;
+    z-index: 1;
+ }
+
+.headroom-not-bottom { top: -48px; }
+
+.navbar-theme-title {
+    font-weight: bold;
+    font-size: 1.5em;
+    line-height: 1.0em;
+    color: #fff;
+    font-family: arial;
+    letter-spacing: 0.05em;
+}
+
+.navbar-theme-menu {
+    font-weight: normal;
+    font-size: 1.0em;
+    line-height: 1.0em;
+    color: #fff;
+    font-family: arial;
+    letter-spacing: 0.05em;
+}

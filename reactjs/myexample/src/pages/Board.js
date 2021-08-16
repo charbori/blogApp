@@ -1,11 +1,28 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
+import { Prepare } from '@/pages';
+import { BoardList } from '@/components';
 
 class Board extends Component {
     constructor (props) {
         super (props);
         this.state = {
-            posts: []
+            id: "jaehyeok",
+            user_data: {
+                name: "test",
+                id: "cjh93"
+            },
+            post_data: {
+                time: "6 hour ago",
+                rate: "1|1|1",
+                action: "Join",
+                like: 1200
+            },
+            content_data: {
+                detail: "detail",
+                src: "",
+                type: false
+            }
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -14,44 +31,55 @@ class Board extends Component {
         this.setState({ value: event.target.value });
     }
     handleSubmit (event) {
-        alert('submit data:' + this.state.id);
-        history.push('/prepare');
+        this.props.history.push({
+            pathname: "/prepare",
+            state: {id: this.state.id}
+        });
     }
-    componentWillMount () {
-        fetch ('http://13.209.68.188/api/board/post', {
-                method: "GET",
-                headers: {
-                    'Content-type': 'application/json'
-                }
-            })
-            .then (response => response.json())
-            .then (data => {
-                    console.log(data);
-                    this.setState({
-                        posts: data.data
-                    })
-                }
-            );
+    componentDidMount () {
+        fetch ('/api/board/post', {
+            method: "GET",
+            headers: {
+                'Content-type': 'application/json'
+            }
+        })
+        .then (response => response.json())
+        .then (data => {
+                console.log(data);
+                this.setState({
+                    user_data: data.data.user_data,
+                    post_data: data.data.post_data,
+                    content_data: data.data.content_data
+                });
+            }
+        );
+        /*
+        const post_test = {
+            user_data: {
+                name: "test",
+                id: "cjh93"
+            },
+            post_data: {
+                time: "6 hour ago",
+                rate: "1|1|1",
+                action: "Join",
+                like: 1200
+            },
+            content_data: {
+                detail: "detail"
+            }
+        };
+        */
     }
     render () {
-        const { posts } = this.state;
-        const postsList = posts.map((post) => (
-            <div key={post.idx}>
-                <h4>{post.title}</h4>
-                <h4>{post.contents}</h4>
-                <p>{post.reg_date}</p>
-            </div>
-        ));
+        const { user_data, post_data, content_data } = this.state;
+        console.log(user_data);
+        console.log(post_data);
+        console.log(content_data);
         return (
-            <form onSubmit={this.handleSubmit}>
-                <div>
-                    {postsList}
-                </div>
-                <label>
-                    <input type="hidden" value={this.state.id} onChange={this.handleChange} />
-                    <input type="submit" value="요청"/>
-                </label>
-            </form>
+            <>
+                <BoardList name={user_data.name} like={post_data.like} time={post_data.time} rate={post_data.rate} action={post_data.action} detail={content_data.detail} type={content_data.type} src={content_data.src}/>
+            </>
         );
     }
 }

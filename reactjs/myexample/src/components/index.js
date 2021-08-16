@@ -12,3 +12,6 @@ export { default as Answer } from './Answer';
 export { default as LoginForm } from './LoginForm';
 export { default as UseFriendStatus } from './UseFriendStatus';
 export { default as Sample } from './Sample';
+export { default as BoardList } from './BoardList';
+export { default as BoardContent } from './BoardContent';
+export { default as SidebarTab } from './SidebarTab';

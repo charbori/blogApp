@@ -4,7 +4,7 @@ module.exports = function (app) {
     // app.use(
     //     '/api',
     //     proxy({
-    //         target: 'http://172.16.0.15:8888/',
+    //         target: 'http://13.209.68.188/',
     //         changeOrigin: true,
     //     })
     // );
