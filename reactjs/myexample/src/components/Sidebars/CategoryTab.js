@@ -1,14 +1,39 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Container, Row, Col, ListGroup, ListGroupItem } from "reactstrap";
 
-const CategoryTab = () => {
-    return (
-        <ListGroup className="mb-3">
-            <ListGroupItem>category1</ListGroupItem>
-            <ListGroupItem>category2</ListGroupItem>
-            <ListGroupItem>category3</ListGroupItem>
-        </ListGroup>
-    );
+class CategoryTab extends Component {
+    constructor (props) {
+        super (props);
+        this.state = {
+            name : [{name:'notitle'}, {name: 'notitle2'}],
+            xcode : '1'
+        }
+    }
+    componentDidMount () {
+        fetch ('/api/category/getSidebarCategoryData?xcode=1', {
+            method: "GET",
+            headers: {
+                'Content-type': 'application/json'
+            }
+        })
+        .then (response => response.json())
+        .then (data => {
+            this.setState({
+                name: data.data
+            });
+        });
+    }
+    render () {
+        const nameList = this.state.name.map((data) =>
+            <ListGroupItem key={data.idx} to={data.name}>{data.name}</ListGroupItem>
+        );
+
+        return (
+            <ListGroup className="mb-3">
+                {nameList}
+            </ListGroup>
+        );
+    }
 };
 
 export default CategoryTab;

@@ -45,14 +45,12 @@ class Board extends Component {
         })
         .then (response => response.json())
         .then (data => {
-                console.log(data);
-                this.setState({
-                    user_data: data.data.user_data,
-                    post_data: data.data.post_data,
-                    content_data: data.data.content_data
-                });
-            }
-        );
+            this.setState({
+                user_data: data.data.user_data,
+                post_data: data.data.post_data,
+                content_data: data.data.content_data
+            });
+        });
         /*
         const post_test = {
             user_data: {

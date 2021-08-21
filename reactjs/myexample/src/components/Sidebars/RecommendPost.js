@@ -1,14 +1,37 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { ListGroup, ListGroupItem } from 'reactstrap';
 
-const RecommendPost = () => {
-    return (
-        <ListGroup className="mb-3">
-            <ListGroupItem>category1</ListGroupItem>
-            <ListGroupItem>category2</ListGroupItem>
-            <ListGroupItem>category3</ListGroupItem>
-        </ListGroup>
-    );
-};
+class RecommendPost extends Component {
+    constructor (props) {
+        super (props);
+        this.state = {
+            data: [{'name' : 'no title1'}, {'name' : 'no title2'}]
+        }
+    }
+    componentDidMount () {
+        fetch ('/api/category/getSidebarRecommendData', {
+            method: "GET",
+            headers: {
+                'Content-type': 'application/json'
+            }
+        })
+        .then (response => response.json())
+        .then (data => {
+            this.setState({
+                data : data.data
+            });
+        });
+    }
+    render () {
+        const recommendList = this.state.data.map((data) =>
+            <ListGroupItem key={data.idx}>{data.name}</ListGroupItem>
+        );
+        return (
+            <ListGroup className="mb-3">
+                {recommendList}
+            </ListGroup>
+        );
+    }
+}
 
 export default RecommendPost;

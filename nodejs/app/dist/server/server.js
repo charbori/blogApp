@@ -20,6 +20,8 @@ var apiBook = require('../routes/booksRouter');
 
 var apiBoard = require('../routes/boardRouter');
 
+var apiMenu = require('../routes/menu');
+
 var cors = require('cors');
 
 if (process.env.NODE_ENV === 'prod') {
@@ -38,7 +40,8 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use('/api', api);
 app.use('/book', apiBook);
-app.use('/board', apiBoard); //app.use('/api', (req, res) => res.json({username:'bryan'}));
+app.use('/board', apiBoard);
+app.use('/category', apiMenu); //app.use('/api', (req, res) => res.json({username:'bryan'}));
 
 app.listen(port, function () {
   console.log("express is running on ".concat(port));
