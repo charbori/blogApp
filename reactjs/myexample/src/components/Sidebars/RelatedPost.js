@@ -25,7 +25,7 @@ class RelatedPost extends Component {
     }
     render () {
         const relatedList = this.state.title.map((data) =>
-            <ListGroupItem  key={data.idx}>{data.title}</ListGroupItem>
+            <ListGroupItem tag="a" key={data.idx} href={'post/' + data.title}>{data.title}</ListGroupItem>
         );
         return (
             <ListGroup className="mb-3">

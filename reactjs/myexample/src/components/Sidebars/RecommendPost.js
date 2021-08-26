@@ -24,7 +24,7 @@ class RecommendPost extends Component {
     }
     render () {
         const recommendList = this.state.data.map((data) =>
-            <ListGroupItem key={data.idx}>{data.name}</ListGroupItem>
+            <ListGroupItem tag="a" key={data.idx} href={data.name}>{data.name}</ListGroupItem>
         );
         return (
             <ListGroup className="mb-3">

@@ -25,7 +25,7 @@ class CategoryTab extends Component {
     }
     render () {
         const nameList = this.state.name.map((data) =>
-            <ListGroupItem key={data.idx} to={data.name}>{data.name}</ListGroupItem>
+            <ListGroupItem tag="a" key={data.idx} href={data.name}>{data.name}</ListGroupItem>
         );
 
         return (

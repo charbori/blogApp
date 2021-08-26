@@ -40,7 +40,7 @@ const UncontrolledDropdownNav = ({ navDatas }) => {
         const splitDatas = datas.split("|");
         return (
             splitDatas.map((data) =>
-                <DropdownItem key={data.index} to={data}>
+                <DropdownItem tag="a" key={data.index} href={data} >
                     {data}
                 </DropdownItem>
             )
