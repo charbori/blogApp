@@ -71,12 +71,9 @@ class Board extends Component {
     }
     render () {
         const { user_data, post_data, content_data } = this.state;
-        console.log(user_data);
-        console.log(post_data);
-        console.log(content_data);
         return (
             <>
-                <BoardList name={user_data.name} like={post_data.like} time={post_data.time} rate={post_data.rate} action={post_data.action} detail={content_data.detail} type={content_data.type} src={content_data.src}/>
+                <BoardList user_data={user_data} post_data={post_data} content_data={content_data}/>
             </>
         );
     }

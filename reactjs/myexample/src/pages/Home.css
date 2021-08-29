@@ -1,3 +1,9 @@
 #main-container {
     margin-top : 68px;
 }
+
+@media (max-width : 769px) {
+    #sidebar-col {
+        display : none;
+    }
+}

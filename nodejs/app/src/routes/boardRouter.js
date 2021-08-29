@@ -15,6 +15,7 @@ router.get('/findUser', function(req, res) {
             res.send(result_data);
         }
     });
+
 });
 
 router.get('/post/add', function(req, res) {

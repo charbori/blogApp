@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Link } from 'react-router-dom';
 
 import "@/assets/vendor/nucleo/css/nucleo.css";
 import "@/assets/vendor/font-awesome/css/font-awesome.min.css";
@@ -42,13 +42,13 @@ class Home extends Component {
             <DemoNavbar />
             <Container id="main-container" className="mb-3">
                 <Breadcrumb>
-                    <BreadcrumbItem active>Home</BreadcrumbItem>
+                    <BreadcrumbItem><Link to="/">Home</Link></BreadcrumbItem>
                 </Breadcrumb>
                 <Row>
                     <Col md="8" xs="12">
                         <Board />
                     </Col>
-                    <Col md="4">
+                    <Col md="4" id="sidebar-col">
                         <SidebarTab />
                     </Col>
                 </Row>

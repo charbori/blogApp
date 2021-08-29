@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 const BoardContent = ({ src, type }) => {
-    if (type) {
+    if (typeof type == 'undefined' && type == "IMG") {
         return (
             <img src={src}/>
         );

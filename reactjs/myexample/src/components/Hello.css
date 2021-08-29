@@ -4,6 +4,16 @@ body {
     font-weight: bold;
 }
 
+.sidebar-col {
+    display : block;
+}
+
+@media screen and (max-width : 768px) {
+    .sidebar-col {
+        display : none;
+    }
+}
+
 .content-name {
     margin : 5px;
     padding : 5px;
@@ -44,20 +54,24 @@ body {
 .parent1 {
     display: inline;
 }
+
 .parent1 p {
     font-size: 10px;
 }
+
 .child1 {
     height: 100px;
     line-height: 100px;
     display:inline-block;
     text-align:center;
 }
+
 .parent2 {
     vertical-align: middle;
     line-height: 400px;
     height: 400px;
 }
+
 .child2-1 {
     display:block;
     line-height: 100px;

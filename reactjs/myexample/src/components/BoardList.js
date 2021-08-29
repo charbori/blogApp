@@ -5,12 +5,22 @@ import { Comment, Shared, Settings } from '@/components/buttons';
 import { BoardContent } from '@/components';
 import "./BoardList.css";
 
-const BoardList = ({name, time, like, rate, action, detail, src, type}) => {
+const BoardList = (user_data, post_data, content_data) => {
+    if (typeof content_data == 'undefined' || Object.keys(content_data).includes('type')) {
+        content_data = {};
+        content_data.type = "detail";
+        content_data.src = 'src';
+    }
+    const { time, like, rate, action } = post_data;
+    const type = content_data.type;
+    const detail = content_data.detail;
+    const { id, name } = user_data;
     let button_action;
     let data = { comment_count : 10 };
     // test datas
     if (action == 'Join')   button_action = <span>Join</span>;
     else    button_action = <span>test</span>
+
     return (
         <div className="shadow card">
             <div className="board-body">
