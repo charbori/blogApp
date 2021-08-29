@@ -3,6 +3,7 @@ mongodb/etc
 mysql
 reactjs/myexample/node_modules
 reactjs/myexample/package-lock.json
+reactjs/myexample/src/assets/fontawesome_free_5.15.4
 *.lock
 nodejs/app/node_modules
 nodejs/app/compiles

@@ -16,4 +16,12 @@ function getConnection(callback) {
     });
 }
 
+/*
+실행부분 형태
+db.getConnection((conn) => {
+    conn.query()
+    conn.release();
+});
+*/
+
 module.exports = getConnection;
