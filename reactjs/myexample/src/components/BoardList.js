@@ -30,7 +30,7 @@ const BoardList = (user_data, post_data, content_data) => {
                             <i className="fa fa-sort-asc" aria-hidden="true"></i>
                         </Row>
                         <Row>
-                            <span>{like}</span>
+                            <span>{like}10</span>
                         </Row>
                         <Row>
                             <i className="fa fa-sort-desc" aria-hidden="true"></i>
