@@ -19,4 +19,4 @@ app.use('/api/category', apiMenu);
 
 app.listen(port, () => {
     console.log(`express is running on ${port}`);
-})
+});
