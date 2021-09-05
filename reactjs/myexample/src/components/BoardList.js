@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, Route } from 'react-router-dom';
 import { Container, Row, Col } from "reactstrap";
 import { Comment, Shared, Settings } from '@/components/buttons';
-import { BoardContent } from '@/components';
+import { BoardContent, Post } from '@/components';
 import "./BoardList.css";
 
 const BoardList = (user_data, post_data, content_data) => {
