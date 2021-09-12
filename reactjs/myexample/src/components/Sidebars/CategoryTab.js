@@ -24,9 +24,14 @@ class CategoryTab extends Component {
         });
     }
     render () {
-        const nameList = this.state.name.map((data) =>
-            <ListGroupItem tag="a" key={data.idx} href={data.name}>{data.name}</ListGroupItem>
-        );
+        var nameList = () => <ListGroupItem tag="a" key='0' href="">error</ListGroupItem>;
+        try {
+            nameList = this.state.name.map((data) =>
+                <ListGroupItem tag="a" key={data.idx} href={data.name}>{data.name}</ListGroupItem>
+            );
+        } catch (e) {
+            console.log(e);
+        }
 
         return (
             <ListGroup className="mb-3">

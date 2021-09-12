@@ -70,5 +70,6 @@ nodejs/app/package-lock.json
 nodejs/app/compiles
 nodejs/app/nodeApi/mysqlConnect.js
 nodejs/app/env
+nodejs/app/dist
 *.log
 *.git

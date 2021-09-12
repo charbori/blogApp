@@ -23,9 +23,14 @@ class RecommendPost extends Component {
         });
     }
     render () {
-        const recommendList = this.state.data.map((data) =>
-            <ListGroupItem tag="a" key={data.idx} href={data.name}>{data.name}</ListGroupItem>
-        );
+        var recommendList = () => <ListGroupItem tag="a" key='0' href="">error</ListGroupItem>;
+        try {
+            recommendList = this.state.data.map((data) =>
+                <ListGroupItem tag="a" key={data.idx} href={data.name}>{data.name}</ListGroupItem>
+            );
+        } catch (e) {
+            console.log(e);
+        }
         return (
             <ListGroup className="mb-3">
                 {recommendList}

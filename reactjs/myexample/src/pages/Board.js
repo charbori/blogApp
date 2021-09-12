@@ -36,44 +36,11 @@ class Board extends Component {
             state: {id: this.state.id}
         });
     }
-    componentDidMount () {
-        fetch ('/api/board/post', {
-            method: "GET",
-            headers: {
-                'Content-type': 'application/json'
-            }
-        })
-        .then (response => response.json())
-        .then (data => {
-            this.setState({
-                user_data: data.data.user_data,
-                post_data: data.data.post_data,
-                content_data: data.data.content_data
-            });
-        });
-        /*
-        const post_test = {
-            user_data: {
-                name: "test",
-                id: "cjh93"
-            },
-            post_data: {
-                time: "6 hour ago",
-                rate: "1|1|1",
-                action: "Join",
-                like: 1200
-            },
-            content_data: {
-                detail: "detail"
-            }
-        };
-        */
-    }
+    
     render () {
-        const { user_data, post_data, content_data } = this.state;
         return (
             <>
-                <BoardList user_data={user_data} post_data={post_data} content_data={content_data}/>
+                <BoardList user_data={this.state.user_data} post_data={this.state.post_data} content_data={this.state.content_data}/>
             </>
         );
     }
