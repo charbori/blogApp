@@ -70,5 +70,6 @@ nodejs/app/package-lock.json
 nodejs/app/compiles
 nodejs/app/env
 nodejs/app/src/env
+nodejs/app/dist
 *.log
 *.git
