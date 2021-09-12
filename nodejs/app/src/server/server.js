@@ -1,14 +1,15 @@
-const express = require('express');
+import express from 'express';
 const app = express();
-const bodyParser = require('body-parser');
+import bodyParser from 'body-parser';
+import Dotenv from 'dotenv';
+import '../env/env.js';
 const port = process.env.POST || 8888;
-import "../../env/env.js";
 
-const api = require('../routes/index');
-const apiBoard = require('../routes/boardRouter');
-const apiLogs = require('../routes/logsRouter');
-const apiMenu = require('../routes/menu');
-const cors = require('cors');
+import api from '../routes/index';
+import apiBoard from '../routes/boardRouter';
+import apiLogs from '../routes/logsRouter';
+import apiMenu from '../routes/menu';
+import cors from 'cors';
 
 app.use(cors());
 app.use(bodyParser.json());

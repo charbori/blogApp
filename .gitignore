@@ -68,7 +68,8 @@ reactjs/myexample/src/assets/fontawesome_free_5.15.4
 nodejs/app/node_modules
 nodejs/app/package-lock.json
 nodejs/app/compiles
-nodejs/app/nodeApi/mysqlConnect.js
 nodejs/app/env
+nodejs/app/src/env
+nodejs/app/dist
 *.log
 *.git
