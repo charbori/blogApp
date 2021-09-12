@@ -43,7 +43,7 @@ module.exports = {
 		})
 	],
 	devServer: {
-		host: '172.16.0.14',
+		host: '0.0.0.0',
 		port: 8889,
 		open: true,
 		disableHostCheck: true

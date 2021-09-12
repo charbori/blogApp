@@ -3,14 +3,10 @@
 var express = require('express');
 
 var router = express.Router();
+
+var db = require('../nodeApi/mysqlConnect.js');
+
 router.get('/', function (req, res) {
-  res.json({
-    title: 'Hello react x node.js'
-  });
-});
-router.get('/user', function (req, res) {
-  res.json({
-    dataStatus: '1'
-  });
+  res.send('content');
 });
 module.exports = router;

@@ -1,48 +1,34 @@
 "use strict";
 
-var _path = _interopRequireDefault(require("path"));
+var _express = _interopRequireDefault(require("express"));
+
+var _bodyParser = _interopRequireDefault(require("body-parser"));
 
 var _dotenv = _interopRequireDefault(require("dotenv"));
 
+require("../env/env.js");
+
+var _index = _interopRequireDefault(require("../routes/index"));
+
+var _boardRouter = _interopRequireDefault(require("../routes/boardRouter"));
+
+var _logsRouter = _interopRequireDefault(require("../routes/logsRouter"));
+
+var _menu = _interopRequireDefault(require("../routes/menu"));
+
+var _cors = _interopRequireDefault(require("cors"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var express = require('express');
-
-var app = express();
-
-var bodyParser = require('body-parser');
-
+var app = (0, _express["default"])();
 var port = process.env.POST || 8888;
-
-var api = require('../routes/index');
-
-var apiBook = require('../routes/booksRouter');
-
-var apiBoard = require('../routes/boardRouter');
-
-var apiMenu = require('../routes/menu');
-
-var cors = require('cors');
-
-if (process.env.NODE_ENV === 'prod') {
-  _dotenv["default"].config({
-    path: _path["default"].join("env", ".env.prod")
-  });
-} else if (process.env.NODE_ENV === 'dev') {
-  _dotenv["default"].config({
-    path: _path["default"].join("env", ".env.dev")
-  });
-} else {
-  throw new Error("process.env.NODE_ENV를 설정하지 않았습니다.");
-}
-
-app.use(cors());
-app.use(bodyParser.json());
-app.use('/api', api);
-app.use('/book', apiBook);
-app.use('/board', apiBoard);
-app.use('/category', apiMenu); //app.use('/api', (req, res) => res.json({username:'bryan'}));
-
+console.log(process.env.DB_HOST);
+app.use((0, _cors["default"])());
+app.use(_bodyParser["default"].json());
+app.use('/api', _index["default"]);
+app.use('/api/board', _boardRouter["default"]);
+app.use('/api/logs', _logsRouter["default"]);
+app.use('/api/category', _menu["default"]);
 app.listen(port, function () {
   console.log("express is running on ".concat(port));
 });
