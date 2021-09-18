@@ -122,7 +122,8 @@ router.get('/post', function(req, res) {
             like: 0
         },
         content_data: {
-            detail: ''
+            detail: '',
+            comment_data: ''
         }
     };
     function result_post() {
@@ -138,6 +139,7 @@ router.get('/post', function(req, res) {
                     result_send.post_data.rate = results[0].post_count;
                     result_send.post_data.like = results[0].post_like;
                     result_send.content_data.detail = results[0].contents;
+                    result_send.content_data.comment_data = results[0].comment_count;
                     resolve(true);
                 }
             });

@@ -21,6 +21,7 @@ class Board extends Component {
             content_data: {
                 detail: "detail",
                 src: "",
+                comment_count: 0,
                 type: false
             }
         };

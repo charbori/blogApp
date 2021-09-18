@@ -62,9 +62,9 @@ class BoardList extends Component {
         var { time, like, rate, action } = this.state.post_data;
         var type = this.state.content_data.type;
         var detail = this.state.content_data.detail;
+        var comment_count = this.state.content_data.comment_data;
         var { id, name } = this.state.user_data;
         let button_action;
-        let data = { comment_count : 10 };
         // test datas
         if (action == 'Join')   button_action = <span>Join</span>;
         else    button_action = <span>{id}</span>
@@ -77,7 +77,7 @@ class BoardList extends Component {
                                 <i className="fa fa-sort-asc" aria-hidden="true"></i>
                             </Row>
                             <Row>
-                                <span>{like}30</span>
+                                <span>{like}</span>
                             </Row>
                             <Row>
                                 <i className="fa fa-sort-desc" aria-hidden="true"></i>
@@ -105,7 +105,7 @@ class BoardList extends Component {
                     </Row>
                     <Row>
                         <Col id="board_interaction">
-                            <Comment count={data.comment_count}/>
+                            <Comment count={comment_count}/>
                             <Shared />
                             <Settings />
                         </Col>
