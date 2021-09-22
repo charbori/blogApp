@@ -24,9 +24,14 @@ class RelatedPost extends Component {
         });
     }
     render () {
-        const relatedList = this.state.title.map((data) =>
-            <ListGroupItem tag="a" key={data.idx} href={'post/' + data.title}>{data.title}</ListGroupItem>
-        );
+        var relatedList = () => <ListGroupItem tag="a" key='0' href="">error</ListGroupItem>;
+        try {
+            relatedList = this.state.title.map((data) =>
+                <ListGroupItem tag="a" key={data.idx} href={'post/' + data.title}>{data.title}</ListGroupItem>
+            );
+        } catch (e) {
+            console.log(e);
+        }
         return (
             <ListGroup className="mb-3">
                 {relatedList}

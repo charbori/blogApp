@@ -28,14 +28,15 @@ import {
   Col,
   UncontrolledTooltip
 } from "reactstrap";
+import "./SimpleFooter.css";
 
 class SimpleFooter extends React.Component {
   render() {
     return (
       <>
-        <footer className=" footer">
+        <footer className="footer">
           <Container>
-            <Row className=" row-grid align-items-center mb-1">
+            <Row className="row-grid align-items-center mb-1">
 
               {/*
               <Col lg="6">
