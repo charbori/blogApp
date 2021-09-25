@@ -1,5 +1,7 @@
 .ct-title {
     font-size: 4em;
     text-align: center;
-    padding-bottom: 0.5em;
+}
+#page_title {
+    margin-bottom: 1em;
 }

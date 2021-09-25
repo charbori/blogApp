@@ -33,7 +33,7 @@ module.exports = {
         return result;
     },
     /*
-    param  array (  token : "aaa.bbb.ccc", 
+    param array (   token : "aaa.bbb.ccc", 
                     claim : 'admin|guest' )
     */
     verify: async (param) => {

@@ -42,15 +42,18 @@ class Login extends Component {
             <>
                 <Container className="mb-3">
                     <Form onClick={this.handleAction}>
-                        <Row>
+                        <Row id="page_title">
                             <Col md="6">
                                 <span><b className="ct-title">Login</b></span>
                             </Col>
+                        </Row>
+                        <Row>
                             <Col md="6">
                             <FormGroup>
                                 <Input
                                 className="userId"
                                 id="userId"
+                                name="userId"
                                 placeholder="userId"
                                 type="text"
                                 value={this.state.userId}
@@ -58,11 +61,14 @@ class Login extends Component {
                                 />
                             </FormGroup>
                             </Col>
+                        </Row>
+                        <Row>
                             <Col md="6">
                             <FormGroup>
                                 <Input
                                 className="userPw"
                                 id="userPw"
+                                name="userPw"
                                 placeholder="password"
                                 type="password"
                                 value={this.state.userPw}

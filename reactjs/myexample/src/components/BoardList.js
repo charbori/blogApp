@@ -73,7 +73,7 @@ class BoardList extends Component {
         var { id, name } = this.state.user_data;
         let button_action;
         // test datas
-        if (action == 'Join')   button_action = <span onClick={() => window.open('/login','_blank')} handleAuthFunc={this.handleLogin}>Join</span>;
+        if (action == 'Join')   button_action = <Link to="/login" handleAuthFunc={this.handleLogin}><span>Join</span></Link>;
         else    button_action = <span>{id}</span>
         return (
             <div className="shadow card">

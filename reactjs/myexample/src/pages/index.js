@@ -9,3 +9,4 @@ export { default as Prepare } from './Prepare';
 export { default as TaskList } from './TaskList';
 export { default as Footers } from './Footers';
 export { default as Login } from './Login';
+export { default as Signup } from './Signup';
