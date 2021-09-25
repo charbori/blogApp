@@ -8,3 +8,4 @@ export { default as Board } from './Board';
 export { default as Prepare } from './Prepare';
 export { default as TaskList } from './TaskList';
 export { default as Footers } from './Footers';
+export { default as Login } from './Login';

@@ -46,9 +46,11 @@ module.exports = {
 		host: '0.0.0.0',
 		port: 8889,
 		open: true,
-		disableHostCheck: true
+		disableHostCheck: true,
+		historyApiFallback: true,
 	},
 	output: {
-	    filename: 'bundle.[hash].js'
+	    filename: 'bundle.[hash].js',
+		publicPath: '/'
 	}
 };

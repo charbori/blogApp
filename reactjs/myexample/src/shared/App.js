@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Home, About, Post, TodoList, Sample, Board, Prepare, TaskList } from '@/pages';
+import { Home, About, Post, TodoList, Sample, Board, Prepare, TaskList, Login, SignUp } from '@/pages';
 import { Menu, Hello } from '@/components';
-import { Landing, Profile, Login, Register } from '@/examples';
+import { Landing, Profile, Register } from '@/examples';
 import { Logs } from '@/admin';
 
 class App extends Component {
@@ -26,6 +26,7 @@ class App extends Component {
                     <Route path="/todoList" component={TodoList}/>
                     <Route path="/hello" component={Hello}/>
                     <Route path="/login" component={Login}/>
+                    <Route path="/signUp" component={SignUp}/>
                     <Route path="/Sample" component={Sample}/>
                     <Route path="/examples/landing-page" component={Landing}/>
                     <Route path="/examples/profile-page" component={Profile}/>

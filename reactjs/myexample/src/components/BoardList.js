@@ -11,7 +11,8 @@ class BoardList extends Component {
         this.state = {
             user_data: props.user_data,
             post_data: props.post_data,
-            content_data: props.content_data
+            content_data: props.content_data,
+            auth: ''
         }
 
         if (typeof content_data == 'undefined' || Object.keys(content_data).includes('type')) {
@@ -19,6 +20,12 @@ class BoardList extends Component {
             this.state.content_data.type = "detail";
             this.state.content_data.src = 'src';
         }
+    }
+
+    // login popup > return
+    handleLogin (resultAuth) {
+        console.log(resultAuth);
+        this.setState({ auth: resultAuth });
     }
 
     componentDidMount () {
@@ -66,7 +73,7 @@ class BoardList extends Component {
         var { id, name } = this.state.user_data;
         let button_action;
         // test datas
-        if (action == 'Join')   button_action = <span>Join</span>;
+        if (action == 'Join')   button_action = <span onClick={() => window.open('/login','_blank')} handleAuthFunc={this.handleLogin}>Join</span>;
         else    button_action = <span>{id}</span>
         return (
             <div className="shadow card">

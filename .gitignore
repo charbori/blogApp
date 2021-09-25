@@ -69,8 +69,12 @@ nodejs/app/node_modules
 nodejs/app/package-lock.json
 nodejs/app/compiles
 nodejs/app/env
+<<<<<<< HEAD
+myapp
+=======
 nodejs/app/src/env
 nodejs/app/dist
 *.out
 *.log
 *.git
+>>>>>>> 85a86e2e95a1f31c384948610016c1a5250fab33
