@@ -27,11 +27,12 @@
     "@babel/cli": "^7.14.3",
     "@babel/core": "^7.14.3",
     "@babel/node": "^7.14.2",
-    "@babel/preset-env": "^7.14.4"
+    "@babel/preset-env": "^7.14.4",
+    "kill-port": "^1.6.1"
   },
   "scripts": {
     "build": "babel src -d dist",
     "start": "npm run build && NODE_ENV=dev node dist/server/server.js",
-    "start:dev": "NODE_ENV=dev nodemon --exec babel-node --delay 5 src/server/server.js"
+    "start:dev": "NODE_ENV=dev nodemon --exec babel-node src/server/server.js"
   }
 }

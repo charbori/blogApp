@@ -26,22 +26,20 @@ class Board extends Component {
             }
         };
         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
     handleChange (event) {
         this.setState({ value: event.target.value });
     }
-    handleSubmit (event) {
-        this.props.history.push({
-            pathname: "/prepare",
-            state: {id: this.state.id}
-        });
-    }
-    
     render () {
+        const { history, match, location } = this.props;
         return (
             <>
-                <BoardList user_data={this.state.user_data} post_data={this.state.post_data} content_data={this.state.content_data}/>
+                <BoardList history={history}
+                    match={match}
+                    location={location}
+                    user_data={this.state.user_data}
+                    post_data={this.state.post_data} 
+                    content_data={this.state.content_data}/>
             </>
         );
     }

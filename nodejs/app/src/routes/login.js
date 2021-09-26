@@ -40,15 +40,16 @@ router.post('/login', function(req, res) {
 });
 
 router.get('/signUp/:userId', function(req, res) {
-    const sql = "select count(*) \
+    const sql = "select count(*) AS cnt \
                    from user     \
-                  where id='" + req.body.userId + "'";
+                  where id='" + req.params.userId + "'";
     db.query(sql, function(err, results, fields) {
+        console.log(results[0].cnt);
         if (err) {
             console.log(err);
         } else {
-            if (results.count === '1') {
-                result.msg = '아이디가 중복되었습니다.';
+            if (results[0].cnt == 1) {
+                result.msg = '아이디가 중복되었습니다. ';
                 res.send(result);
             } else {
                 result.success = true;

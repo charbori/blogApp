@@ -17,14 +17,14 @@ class Signup extends React.Component {
 
     // 회원 가입
     handleAction = (e) => {
-        // fetch
-        // sign token get return
-        console.log('userId:' + this.state.userId);
-        console.log('userPw:' + this.state.userPw);
         if (false === this.state.userIdChk) {
             this.setState.msg = '아이디를 확인해주세요';
             return;
         }
+
+        console.log(this.props.location);
+
+        return ;
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -33,8 +33,7 @@ class Signup extends React.Component {
         fetch ("/api/auth/signUp", requestOptions)
         .then (response => response.json())
         .then (data => {
-            //https://velog.io/@devstone/react-router-dom-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B3%A0-%ED%99%9C%EC%9A%A9%ED%95%98%EA%B8%B0
-            //페이지 이동 관련
+            
         });
     }
     
@@ -56,6 +55,9 @@ class Signup extends React.Component {
         if (this.state.userId.length < 2) {
             return ;
         }
+
+        console.log(props.location);
+
         const url = "/api/auth/signUp/" + this.state.userId;
         fetch (url, requestOptions)
         .then (response => response.json())

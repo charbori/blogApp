@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
-
 import "@/assets/vendor/nucleo/css/nucleo.css";
 import "@/assets/vendor/font-awesome/css/font-awesome.min.css";
 import "@/assets/scss/argon-design-system-react.scss?v1.1.0";
-
 import { About, Post, TodoList, MyPageApp, Sample, Board, Prepare, TaskList } from '@/pages';
 import { Menu, Hello, SidebarTab } from '@/components';
 import { Landing, Profile, Login, Register } from '@/examples';
@@ -16,7 +14,7 @@ import "./Home.css";
 
 class Home extends Component {
     constructor (props) {
-        super (props);
+        super(props);
         this.state = {
             id: "jaehyeok",
             user_data: {
@@ -36,17 +34,27 @@ class Home extends Component {
             }
         };
     }
+    
+    moveHome (props) {
+        props.history.push('/');
+    }
+    
     render () {
+        console.log(this.props.location);
         return (
             <>
             <DemoNavbar />
             <Container id="main-container" className="mb-3">
                 <Breadcrumb>
-                    <BreadcrumbItem><Link to="/">Home</Link></BreadcrumbItem>
+                    <BreadcrumbItem>
+                    <span onClick={ () => this.moveHome(this.props) }>Home</span>
+                    </BreadcrumbItem>
                 </Breadcrumb>
                 <Row>
                     <Col md="8" xs="12">
-                        <Board />
+                        <Board location={this.props.location}
+                            match={this.props.match}
+                            history={this.props.history}/>
                     </Col>
                     <Col md="4" id="sidebar-col">
                         <SidebarTab />

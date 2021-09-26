@@ -15,10 +15,6 @@ class Login extends Component {
     }
 
     handleAction = (e) => {
-        // fetch
-        // sign token get return
-        console.log('userId:' + this.state.userId);
-        console.log('userPw:' + this.state.userPw);
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -38,6 +34,8 @@ class Login extends Component {
     }
 
     render () {
+        console.log('history:' + this.props.location);
+
         return (
             <>
                 <Container className="mb-3">
@@ -81,7 +79,7 @@ class Login extends Component {
                         <Col md="6">
                             <FormGroup>
                                 <Button>ok</Button>
-                                <Button><Link to="/signUp">SignUp</Link></Button>
+                                <Button><Link to="/signUp" onClick={() => { this.props.history.push('/login'); }}>SignUp</Link></Button>
                             </FormGroup>
                             </Col>
                         </Row>

@@ -63,17 +63,18 @@ class BoardList extends Component {
     }
 
     render () {
-        console.log(this.state.user_data);
-        console.log(this.state.post_data);
-        console.log(this.state.content_data);
         var { time, like, rate, action } = this.state.post_data;
         var type = this.state.content_data.type;
         var detail = this.state.content_data.detail;
         var comment_count = this.state.content_data.comment_data;
         var { id, name } = this.state.user_data;
+        var userToken = 'test_id';
+        var action = 'Join';
         let button_action;
-        // test datas
-        if (action == 'Join')   button_action = <Link to="/login" handleAuthFunc={this.handleLogin}><span>Join</span></Link>;
+
+        console.log(this.props.location);
+
+        if (action == 'Join')   button_action = <span onClick={() => { this.props.history.push('/login'); }}>Join</span>;
         else    button_action = <span>{id}</span>
         return (
             <div className="shadow card">
