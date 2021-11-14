@@ -10,7 +10,7 @@ class Post extends Component {
     }
 
     componentDidMount() {
-        fetch ('http://couhensoft.com:8888/api')
+        fetch ('http://192.168.219.109:8888/api')
             .then (response => response.json())
             .then (response => this.setState({content: response.title}));
     }

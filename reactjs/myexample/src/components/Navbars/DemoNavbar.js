@@ -23,9 +23,11 @@ import './DemoNavbar.css';
 import "@/assets/vendor/font-awesome/css/font-awesome.css";
 import "@/assets/fontawesome_free_5.15.4/css/all.css";
 import "@/assets/scss/argon-design-system-react.scss?v1.1.0";
+import "@/assets/css/base.css";
 import UncontrolledDropdownNav from "@/components/Navbars/UncontrolledDropdownNav.js";
 // reactstrap components
 import { Home, About, Post, TodoList, Sample, Board, Prepare, TaskList } from '@/pages';
+import { LoginPopup } from "@/components";
 import {
   Button,
   UncontrolledCollapse,
@@ -113,7 +115,7 @@ class DemoNavbar extends Component {
                 <b className="navbar-theme-title">DEV</b>
               </Link>
               <button className="navbar-toggler" id="navbar_global">
-                <i class="fas fa-align-justify"></i>
+                <i className="fas fa-align-justify navIconStyle"></i>
               </button>
               <UncontrolledCollapse
                 toggler="#navbar_global"
@@ -126,13 +128,12 @@ class DemoNavbar extends Component {
                   <Row>
                     <Col className="collapse-brand" xs="6">
                       <Link to="/">
-                        <img
-                          alt="..."
-                        />
+                        <i className="fas fa-home fa-3x baseIconStyle"></i>
                       </Link>
                     </Col>
                     <Col className="collapse-close" xs="6">
                       <button className="navbar-toggler" id="navbar_global">
+                        <i className="fas fa-plus baseIconStyle"></i>
                       </button>
                     </Col>
                   </Row>
@@ -142,19 +143,22 @@ class DemoNavbar extends Component {
                 </Nav>
                 <Nav className="align-items-lg-center ml-lg-auto" navbar>
                   <NavItem>
+                    <LoginPopup />
+                  </NavItem>
+                  <NavItem>
                     <NavLink
                       className="nav-link-icon"
                       href="https://github.com/charbori/blogApp"
                       id="tooltip112445449"
                       target="_blank"
-                    >
-                      <i className="fa fa-github" />
+                      >
+                      <i class="fab fa-github  navIconStyle"></i>
                       <span className="nav-link-inner--text d-lg-none ml-2">
                         Github
                       </span>
                     </NavLink>
                     <UncontrolledTooltip delay={0} target="tooltip112445449">
-                      Star us on Github
+                      blogApp project Github
                     </UncontrolledTooltip>
                   </NavItem>
                   <NavItem>

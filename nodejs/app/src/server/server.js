@@ -3,6 +3,7 @@ const app = express();
 import bodyParser from 'body-parser';
 import Dotenv from 'dotenv';
 import '../env/env.js';
+import 'regenerator-runtime'
 const port = process.env.POST || 8888;
 
 import api from '../routes/index';

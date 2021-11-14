@@ -16,7 +16,7 @@ class Signup extends React.Component {
     }
 
     // 회원 가입
-    handleAction = (e) => {
+    actionSignUp = (e) => {
         if (false === this.state.userIdChk) {
             this.setState.msg = '아이디를 확인해주세요';
             return;
@@ -24,13 +24,12 @@ class Signup extends React.Component {
 
         console.log(this.props.location);
 
-        return ;
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ userId: this.state.userId, userPw: this.state.userPw, userName: this.state.userName })
         }
-        fetch ("/api/auth/signUp", requestOptions)
+        fetch ("http://192.168.219.109:8888/api/auth/signUp", requestOptions)
         .then (response => response.json())
         .then (data => {
             
@@ -47,7 +46,7 @@ class Signup extends React.Component {
         });
     }
 
-    handleCheckUserId = (e) => {
+    checkUserId = (e) => {
         const requestOptions = {
             method: "GET",
             headers: { 'Content-Type': 'application/json'}
@@ -58,7 +57,7 @@ class Signup extends React.Component {
 
         console.log(props.location);
 
-        const url = "/api/auth/signUp/" + this.state.userId;
+        const url = "http://192.168.219.109:8888/api/auth/signUp/" + this.state.userId;
         fetch (url, requestOptions)
         .then (response => response.json())
         .then (data => {
@@ -104,7 +103,7 @@ class Signup extends React.Component {
                             </FormGroup>
                             </Col>
                             <Col md="2">
-                                <Button onClick={this.handleCheckUserId}>{this.state.userIdChkText}</Button>
+                                <Button onClick={this.checkUserId}>{this.state.userIdChkText}</Button>
                             </Col>
                         </Row>
                         <Row>
@@ -147,7 +146,7 @@ class Signup extends React.Component {
                         <Row>
                             <Col md="6">
                                 <FormGroup>
-                                    <Button onClick={this.handleAction}>SignUp</Button>
+                                    <Button onClick={this.actionSignUp}>SignUp</Button>
                                     <Button><Link to="/">Cancel</Link></Button>
                                 </FormGroup>
                             </Col>

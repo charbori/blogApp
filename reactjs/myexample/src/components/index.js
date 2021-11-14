@@ -15,3 +15,5 @@ export { default as Sample } from './Sample';
 export { default as BoardList } from './BoardList';
 export { default as BoardContent } from './BoardContent';
 export { default as SidebarTab } from './SidebarTab';
+export { default as AlertMark } from './alertMark';
+export { default as LoginPopup } from './LoginPopup';

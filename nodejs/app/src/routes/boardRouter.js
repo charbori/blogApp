@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const db = require('../nodeApi/mysqlConnect.js');
+const boardController = require('../controller/boardController.js');
 
 const test_table = 'post';
 router.get('/findUser', function(req, res) {
@@ -17,40 +18,7 @@ router.get('/findUser', function(req, res) {
     });
 });
 
-router.get('/post/add', function(req, res) {
-    var datas = new Array();
-    var res_add = '';
-    var insert_values = '';
-    if (typeof req.query.end === 'undefined') {
-        var error_msg = 'end value is undefined';
-        console.log(error_msg);
-        res.send(error_msg);
-    }
-    for (var i = 1; i < req.query.end; i++) {
-        insert_values = insert_values + ` ,('title ${i}', 'data ${i}', 'id ${i}')`;
-    }
-
-    var sql = "INSERT INTO " + test_table + "(`title`, `contents`, `user_id`)  \
-               VALUES ('title0', 'data0', 'id0')";
-    sql = sql + insert_values;
-
-    let today = new Date();
-    var start_time = today.getHours() + "/" + today.getMinutes() + "/" + today.getSeconds() + "/" + today.getMilliseconds();
-    console.log(start_time);
-    db.query(sql, function (error, results, fields) {
-        if (error) {
-            console.log("insert error");
-            var result_data = JSON.stringify({ success: false, data:"" });
-        } else {
-            var result_data = JSON.stringify({ success: true, data:results });
-            res_add = result_data;
-            let today_end = new Date();
-            var end_time = today_end.getHours() + "/" + today_end.getMinutes() + "/" + today_end.getSeconds() + "/" + today_end.getMilliseconds();
-            console.log(end_time);
-        }
-    });
-    res.send(res_add);
-});
+router.get('/post/add', boardController.addPost);
 
 router.get('/post/delete', function(req, res) {
     // check req

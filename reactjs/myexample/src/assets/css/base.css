@@ -1,0 +1,17 @@
+.baseStyle {
+    color : #ffffff;
+    background-color: #172b4d;
+}
+
+.baseIconStyle {
+    color : #172b4d;
+}
+.navIconStyle {
+    color : #ffffff;
+}
+.base-align-right {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}

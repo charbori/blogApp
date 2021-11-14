@@ -3,6 +3,7 @@ var router = express.Router();
 const db = require('../nodeApi/mysqlConnect.js');
 const jwt = require('../middleware/jwt.js');
 const cryptoLib = require('../lib/cryptoData');
+const { reject } = require('underscore');
 var result = {
     success : false,
     msg : ''
@@ -11,32 +12,47 @@ var result = {
 // 로그인 체크 후 토큰 발급
 router.post('/login', function(req, res) {
     if (req.body.userId == undefined || req.body.userPw == undefined || req.body.authType == undefined ) {
-        console.log('login fail none params');
         result.msg = '로그인 정보를 입력해주세요.';
         return result;
     }
-    const sql = "select count(*) \
-                   from user     \
-                  where id='" + req.body.userId + "' \
-                    and password='" + cryptoLib.getEncryptData(req.body.userPw) + "'";
 
-    db.query(sql, function(err, results, fields) {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log(results);
-            if (results === '1') {
-                const user_data = {
-                    userId : req.body.userId,
-                    authType : req.body.authType
+    (function () {
+        console.log('start check login data');
+        return new Promise(function (resolve) {
+            resolve(cryptoLib.getEncryptData(req.body.userPw));
+        });
+    })().then(function (cryptoPassword) {
+        if (cryptoPassword != undefined && cryptoPassword.length > 0) {
+            const sql = "select count(*) \
+            from user     \
+            where id='" + req.body.userId + "' \
+            and password='" + cryptoLib.getEncryptData(req.body.userPw) + "'";
+            console.log(req.body.userId + ' ' + req.body.userPw + ' ' + cryptoPassword);
+
+            db.query(sql, function(err, results, fields) {
+                if (err) {
+                    res.send(result);
+                } else {
+                    console.log(results);
+                    if (results === '1') {
+                        const user_data = {
+                            userId : req.body.userId,
+                            authType : req.body.authType
+                        }
+                        const tokenData = jwt.sign(user_data);
+                        result.data = tokenData;
+                        res.send(result);
+                    } else {
+                        res.send(result);
+                    }
                 }
-                const tokenData = jwt.sign(user_data);
-            } else {
-
-            }
+            });
         }
-
+    }).catch(function(err) {
+        console.error(err);
+        res.send(result);
     });
+   
 });
 
 router.get('/signUp/:userId', function(req, res) {
@@ -76,6 +92,8 @@ router.post('/signUp', function(req, res) {
             db.query(sql, function(err, results, fields) {
                 if (err) {
                     console.log(err);
+                    result.msg = '일시적인 오류가 발생했습니다.';
+                    res.send(result);
                 } else {
                     if (results) {
                         result.msg = '회원가입 완료';
@@ -105,6 +123,7 @@ router.get('/token/:userId/:authType', function(req, res) {
         authType : req.params.authType
     }
     const tokenData = jwt.sign(user_data);
+    res.send();
 });
 
 // token 권한 확인

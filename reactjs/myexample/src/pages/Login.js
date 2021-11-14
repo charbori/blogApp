@@ -1,16 +1,19 @@
 import React, { Component, useState } from 'react';
 import { Link, Route } from 'react-router-dom';
 import { FormGroup, Form, Input, InputGroupAddon, InputGroupText, InputGroup, Row, Col, Button, Container } from 'reactstrap';
-import { Profile, UseFriendStatus } from '@/components';
+import { Profile, UseFriendStatus, AlertMark } from '@/components';
 import { AuthRoute, signIn } from '@/lib';
 import './Login.css';
+import { useCookies } from 'react-cookie';
 
 class Login extends Component {
     constructor (props) {
         super (props);
         this.state = {
             userId : '',
-            userPw : ''
+            userPw : '',
+            alertType : '',
+            alertMsg : '',
         }
     }
 
@@ -18,28 +21,42 @@ class Login extends Component {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ userId: this.state.userId, userPw: this.state.userPw })
+            body: JSON.stringify({ userId: this.state.userId, userPw: this.state.userPw, authType: 'guest' })
         };
-        fetch ("/api/login/auth", requestOptions)
+        fetch ("http://192.168.219.109:8888/api/auth/login", requestOptions)
         .then (response => response.json())
         .then (data => {
-            console.log (data);
+            console.log(data);
+            if (data.success === false) {
+                this.setState({ 
+                    alertType: false,
+                    alertMsg: data.msg
+                });
+                console.log('fail');
+            } else {
+                this.setState({ 
+                    alertType: true,
+                    alertMsg: ''
+                });
+                setCookie('auth', data, { path: '/' });
+                console.log('done');
+            }
         });
     }
     
     handleChange = (e) => {
         this.setState({
-          [e.target.id]: e.target.value
+            alertType: '',
+            alertMsg: '',
+            [e.target.id]: e.target.value
         })
     }
 
     render () {
-        console.log('history:' + this.props.location);
-
         return (
             <>
                 <Container className="mb-3">
-                    <Form onClick={this.handleAction}>
+                    <Form>
                         <Row id="page_title">
                             <Col md="6">
                                 <span><b className="ct-title">Login</b></span>
@@ -76,11 +93,16 @@ class Login extends Component {
                             </Col>
                         </Row>
                         <Row>
-                        <Col md="6">
-                            <FormGroup>
-                                <Button>ok</Button>
-                                <Button><Link to="/signUp" onClick={() => { this.props.history.push('/login'); }}>SignUp</Link></Button>
-                            </FormGroup>
+                            <Col md="3">
+                                <FormGroup>
+                                    <Button onClick={this.handleAction}>ok</Button>
+                                    <Button><Link to="/signUp" onClick={() => { this.props.history.push('/login'); }}>SignUp</Link></Button>
+                                </FormGroup>
+                            </Col>
+                            <Col md="3">
+                                {
+                                    this.state.alertType === false ? <AlertMark msg={this.state.alertMsg} type={this.state.alertType}/> : <div></div>
+                                }
                             </Col>
                         </Row>
                     </Form>
