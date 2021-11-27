@@ -9,9 +9,6 @@ import {
 } from "reactstrap";
 
 const UncontrolledDropdownNav = ({ navDatas }) => {
-    console.log("data uncontrolled dropdown");
-    console.log(navDatas);
-
     if (typeof navDatas !== 'object') {
         return ( <> </> );
     }
@@ -46,8 +43,6 @@ const UncontrolledDropdownNav = ({ navDatas }) => {
             )
         );
     }
-    console.log(navItems);
-    console.log(navMidItems);
 
     const navMidList = navItems.map((data) =>
         <UncontrolledDropdown nav>

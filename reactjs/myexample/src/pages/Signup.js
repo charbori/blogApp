@@ -85,7 +85,7 @@ class Signup extends React.Component {
                     <Form>
                         <Row id="page_title">
                             <Col md="6">
-                                <span><b className="ct-title">Login</b></span>
+                                <span><b className="ct-title">Signup</b></span>
                             </Col>
                         </Row>
                         <Row>

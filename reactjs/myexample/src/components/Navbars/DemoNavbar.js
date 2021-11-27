@@ -52,6 +52,9 @@ import {
   InputGroupText,
   InputGroup,
 } from "reactstrap";
+import { Config } from '@/admin/config';
+
+const NODE_SERVER = Config.NODE_SERVER;
 
 class DemoNavbar extends Component {
     constructor (props) {
@@ -64,9 +67,7 @@ class DemoNavbar extends Component {
     }
 
     componentWillMount() {
-        console.log("will mount!!!!!");
-
-        fetch ('/api/category/getCategoryDataAll', {
+        fetch (NODE_SERVER + 'category/getCategoryDataAll', {
             method:"GET",
             headers: {
                 'Content-type': 'application/json; charset=utf-8'

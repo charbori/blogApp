@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { ListGroup, ListGroupItem } from 'reactstrap';
+import { Config } from '@/admin/config';
+
+const NODE_SERVER = Config.NODE_SERVER;
 
 class RelatedPost extends Component {
     constructor (props) {
@@ -10,7 +13,7 @@ class RelatedPost extends Component {
         }
     }
     componentDidMount () {
-        fetch ('/api/category/getSidebarRelatedData?post_type=' + this.state.post_type, {
+        fetch (NODE_SERVER + 'category/getSidebarRelatedData?post_type=' + this.state.post_type, {
             method: "GET",
             headers: {
                 'Content-type': 'application/json'

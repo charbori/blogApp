@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, ListGroup, ListGroupItem } from "reactstrap";
+import { Config } from '@/admin/config';
+
+const NODE_SERVER = Config.NODE_SERVER;
 
 class CategoryTab extends Component {
     constructor (props) {
@@ -10,7 +13,7 @@ class CategoryTab extends Component {
         }
     }
     componentDidMount () {
-        fetch ('/api/category/getSidebarCategoryData?xcode=1', {
+        fetch (NODE_SERVER + 'category/getSidebarCategoryData?xcode=1', {
             method: "GET",
             headers: {
                 'Content-type': 'application/json'

@@ -38,28 +38,25 @@ class LoginPopup extends React.Component {
   checkLogin = (e) => {
       const requestOptions = {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify({ userId: this.state.userId, userPw: this.state.userPw, authType: 'guest' })
       };
 
       fetch ("http://192.168.219.109:8888/api/auth/login", requestOptions)
       .then (response => response.json())
       .then (data => {
-          console.log(data);
           if (data.success === true) {
               this.setState({
                   alertType: true,
                   alertMsg: ''
               });
               setCookie('auth', data, { path: '/' });
-              console.log('done');
               this.toggleModal("exampleModal");
           } else {
               this.setState({
                   alertType: false,
                   alertMsg: data.msg
               });
-              console.log('fail');
           }
       });
   }
@@ -136,13 +133,17 @@ class LoginPopup extends React.Component {
                     </Col>
                 </Row>
             </Form>
-            <span className="base-align-right">
-                <Button onClick={this.checkLogin}>ok</Button>
-                <Button onClick={() => this.toggleModal("exampleModal")}>cancel</Button>
-                {
-                    this.state.alertType === false ? <AlertMark msg={this.state.alertMsg} type={this.state.alertType}/> : <div></div>
-                }
-            </span>
+            <div className="base-align-between">
+                <span>
+                    {
+                        this.state.alertType === false ? <AlertMark msg={this.state.alertMsg} type={this.state.alertType}/> : <div></div>
+                    }
+                </span>
+                <span>
+                    <Button onClick={this.checkLogin}>ok</Button>
+                    <Button onClick={() => this.toggleModal("exampleModal")}>cancel</Button>
+                </span>
+            </div>
           </div>
           <div className="modal-footer">
           </div>

@@ -4,6 +4,9 @@ import { Container, Row, Col } from "reactstrap";
 import { Comment, Shared, Settings } from '@/components/buttons';
 import { BoardContent, Post } from '@/components';
 import "./BoardList.css";
+import { Config } from '@/admin/config';
+
+const NODE_SERVER = Config.NODE_SERVER;
 
 class BoardList extends Component {
     constructor (props) {
@@ -24,16 +27,13 @@ class BoardList extends Component {
 
     // login popup > return
     handleLogin (resultAuth) {
-        console.log(resultAuth);
         this.setState({ auth: resultAuth });
     }
 
     componentDidMount () {
-        fetch ('/api/board/post', {
+        fetch (NODE_SERVER + 'board/post', {
             method: "GET",
-            headers: {
-                'Content-type': 'application/json'
-            }
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
         })
         .then (response => response.json())
         .then (data => {
@@ -72,9 +72,7 @@ class BoardList extends Component {
         var action = 'Join';
         let button_action;
 
-        console.log(this.props.location);
-
-        if (action == 'Join')   button_action = <span onClick={() => { this.props.history.push('/login'); }}>Join</span>;
+        if (action == 'Join')   button_action = <span onClick={() => { this.props.history.push('/signUp'); }}>Join</span>;
         else    button_action = <span>{id}</span>
         return (
             <div className="shadow card">
@@ -101,9 +99,6 @@ class BoardList extends Component {
                                     </div>
                                 </div>
                                 <div className="col-2">
-                                    <div className="badge badge-success badge-pill" id="post_action">
-                                        {button_action}
-                                    </div>
                                 </div>
                             </div>
                             <div id="content_detail" className="description">

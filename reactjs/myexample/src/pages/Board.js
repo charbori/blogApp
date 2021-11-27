@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
+import { Card, Button } from "reactstrap";
 import { Prepare } from '@/pages';
-import { BoardList } from '@/components';
+import { BoardList, Editor } from '@/components';
+import "@/assets/css/board.css";
+import { Config } from '@/admin/config';
+
+const NODE_SERVER = Config.NODE_SERVER;
 
 class Board extends Component {
     constructor (props) {
@@ -32,14 +37,40 @@ class Board extends Component {
     }
     render () {
         const { history, match, location } = this.props;
+        let show_menu = 'board';
+        let contents = '';
+
+        // menu action name
+        if (Object.keys(this.props.match.params).includes('action') && this.props.match.params.action.length > 0) {
+            const menu = this.props.match.params.action;
+            switch (menu) {
+                case 'edit':
+                    show_menu = 'edit';
+                    contents = <Editor></Editor>;
+                    break;
+            }
+        }
+
         return (
             <>
-                <BoardList history={history}
-                    match={match}
-                    location={location}
-                    user_data={this.state.user_data}
-                    post_data={this.state.post_data} 
-                    content_data={this.state.content_data}/>
+                {show_menu == 'board' &&
+                    <>
+                        <Card className="board_insert text-center">
+                            <Button onClick={() => { this.props.history.push('/board/post/edit')}}>(+) ADD POST</Button>
+                        </Card>
+                        <BoardList history={history}
+                            match={match}
+                            location={location}
+                            user_data={this.state.user_data}
+                            post_data={this.state.post_data} 
+                            content_data={this.state.content_data}/>
+                    </>
+                }
+                {show_menu == 'edit' &&
+                    <>
+                        {contents}
+                    </>
+                }
             </>
         );
     }

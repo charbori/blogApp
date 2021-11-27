@@ -17,7 +17,6 @@ router.post('/login', function(req, res) {
     }
 
     (function () {
-        console.log('start check login data');
         return new Promise(function (resolve) {
             resolve(cryptoLib.getEncryptData(req.body.userPw));
         });
@@ -27,22 +26,25 @@ router.post('/login', function(req, res) {
             from user     \
             where id='" + req.body.userId + "' \
             and password='" + cryptoLib.getEncryptData(req.body.userPw) + "'";
-            console.log(req.body.userId + ' ' + req.body.userPw + ' ' + cryptoPassword);
 
             db.query(sql, function(err, results, fields) {
                 if (err) {
+                    console.log(err);
+                    result.msg = '일시적인 오류가 발생했습니다.';
                     res.send(result);
                 } else {
-                    console.log(results);
                     if (results === '1') {
                         const user_data = {
                             userId : req.body.userId,
                             authType : req.body.authType
                         }
                         const tokenData = jwt.sign(user_data);
+                        result.success = true;
                         result.data = tokenData;
+                        result.msg = '';
                         res.send(result);
                     } else {
+                        result.msg = '아이디 패스워드를 확인해주세요.';
                         res.send(result);
                     }
                 }
@@ -55,17 +57,19 @@ router.post('/login', function(req, res) {
    
 });
 
+//회원 중복확인
 router.get('/signUp/:userId', function(req, res) {
     const sql = "select count(*) AS cnt \
                    from user     \
                   where id='" + req.params.userId + "'";
     db.query(sql, function(err, results, fields) {
-        console.log(results[0].cnt);
         if (err) {
             console.log(err);
+            result.msg = '일시적인 오류가 발생했습니다.';
+            res.send(result);
         } else {
             if (results[0].cnt == 1) {
-                result.msg = '아이디가 중복되었습니다. ';
+                result.msg = '아이디가 중복되었습니다.';
                 res.send(result);
             } else {
                 result.success = true;
@@ -76,17 +80,16 @@ router.get('/signUp/:userId', function(req, res) {
     });
 });
 
+//화원 가입
 router.post('/signUp', function(req, res) {
     if (req.body.userId === undefined || req.body.userName === undefined || req.body.userPw === undefined) {
         result.msg = '회원 데이터를 다시 입력해주세요';
-        result.success = false;
         res.send(result);
     }
     const cryptoPassword = cryptoLib.getEncryptData(req.body.userPw);
 
     cryptoPassword.then((cryptoRes) => {
         if (cryptoRes.length > 0) {
-            console.log(req.body.userId + "','" + req.body.userName + "','" + cryptoRes);
             const sql = "insert into user(`id`,`name`,`password`,`reg_date`) values('" + req.body.userId + "','" + req.body.userName + "','" + cryptoRes + "',now());";
             
             db.query(sql, function(err, results, fields) {
@@ -123,12 +126,13 @@ router.get('/token/:userId/:authType', function(req, res) {
         authType : req.params.authType
     }
     const tokenData = jwt.sign(user_data);
-    res.send();
+    result.msg = tokenData;
+    result.success = true;
+    res.send(result);
 });
 
 // token 권한 확인
 router.get('/token/validation/:token/:claim', function(req, res) {
-    console.log(req.params.token);
     const validateResult = jwt.verify(req.params);
     if (validateResult == 'N') {
         console.log('auth fail token 전송에러 다시 시도해주세요');

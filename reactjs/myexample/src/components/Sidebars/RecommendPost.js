@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { ListGroup, ListGroupItem } from 'reactstrap';
+import { Config } from '@/admin/config';
+
+const NODE_SERVER = Config.NODE_SERVER;
 
 class RecommendPost extends Component {
     constructor (props) {
@@ -9,7 +12,7 @@ class RecommendPost extends Component {
         }
     }
     componentDidMount () {
-        fetch ('/api/category/getSidebarRecommendData', {
+        fetch (NODE_SERVER + 'category/getSidebarRecommendData', {
             method: "GET",
             headers: {
                 'Content-type': 'application/json'

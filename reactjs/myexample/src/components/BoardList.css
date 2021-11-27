@@ -7,6 +7,7 @@
     margin-left: 5px;
 }
 #promote_like {
+    margin-top: 12px;
     align-items: center;
 }
 #promote_like .row {
@@ -30,4 +31,7 @@ span.ft-text-sm {
     font-weight: normal;
     vertical-align: baseline;
     color: #525f7f;
+}
+.description {
+    margin-top: 12px;
 }
