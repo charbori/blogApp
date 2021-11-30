@@ -3,8 +3,11 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding-top: 5px;
-    margin-left: 5px;
+    padding-top: 12px;
+    color: darkgray;
+}
+#post_like {
+    height:12px;
 }
 #promote_like {
     margin-top: 12px;
@@ -13,6 +16,10 @@
 #promote_like .row {
     justify-content: center;
     margin-left: 0px;
+}
+.post_like_content {
+    font-size: 15px;
+    font-color:#000000;
 }
 .board-body {
     padding: 5px;
@@ -25,6 +32,10 @@ span.ft-text-md {
     vertical-align: baseline;
     color: #525f7f;
 }
+#user_name {
+    font-weight: bold;
+    color:#000000;
+}
 span.ft-text-sm {
     height: 100%;
     font-size: 12px;
@@ -34,4 +45,7 @@ span.ft-text-sm {
 }
 .description {
     margin-top: 12px;
+}
+.mb-12 {
+    margin-bottom: 12px;
 }

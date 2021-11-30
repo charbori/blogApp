@@ -13,7 +13,7 @@ class BoardList extends Component {
         super (props);
         this.state = {
             user_data: props.user_data,
-            post_data: props.post_data,
+            post_data: '',
             content_data: props.content_data,
             auth: ''
         }
@@ -37,12 +37,12 @@ class BoardList extends Component {
         })
         .then (response => response.json())
         .then (data => {
+            console.log(data);
             this.setState({
-                user_data: data.data.user_data,
-                post_data: data.data.post_data,
-                content_data: data.data.content_data
+                post_data: data.data
             });
         });
+
         /*
         const post_test = {
             user_data: {
@@ -63,58 +63,81 @@ class BoardList extends Component {
     }
 
     render () {
-        var { time, like, rate, action } = this.state.post_data;
-        var type = this.state.content_data.type;
-        var detail = this.state.content_data.detail;
-        var comment_count = this.state.content_data.comment_data;
-        var { id, name } = this.state.user_data;
-        var userToken = 'test_id';
-        var action = 'Join';
-        let button_action;
-
-        if (action == 'Join')   button_action = <span onClick={() => { this.props.history.push('/signUp'); }}>Join</span>;
-        else    button_action = <span>{id}</span>
-        return (
-            <div className="shadow card">
-                <div className="board-body">
-                    <Row>
-                        <Col id="promote_like" md="1" xs="1">
-                            <Row>
-                                <i className="fa fa-sort-asc" aria-hidden="true"></i>
-                            </Row>
-                            <Row>
-                                <span>{like}</span>
-                            </Row>
-                            <Row>
-                                <i className="fa fa-sort-desc" aria-hidden="true"></i>
-                            </Row>
-                        </Col>
-                        <Col id="content_body" md="10" xs="10">
-                            <div id="content_state" className="justify-content-center row">
-                                <div className="col-10">
-                                    <div id="user_detail">
-                                        <span className="mr-1 ft-text-md" id="user_name">{name}</span>
-                                        <span className="mr-1 ft-text-sm" id="post_time">{time}</span>
-                                        <span className="mr-1 ft-text-sm" id="post_rate">{rate}</span>
-                                    </div>
-                                </div>
-                                <div className="col-2">
-                                </div>
-                            </div>
-                            <div id="content_detail" className="description">
-                                <BoardContent src={detail} type={type} />
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col id="board_interaction">
-                            <Comment count={comment_count}/>
-                            <Shared />
-                            <Settings />
-                        </Col>
-                    </Row>
+        var post_list = '';
+        if (this.state.post_data == '') {
+            post_list = this.state.post_data;
+        } else {
+            post_list = this.state.post_data.map((val) => 
+                <div className="shadow card mb-12">
+                    <div className="board-body">
+                        <Row>
+                            <Col md="1" xs="1">
+                                <Row>
+                                    <Col id="promote_like">
+                                        <Row>
+                                            <i className="fa fa-sort-asc fa-2x" aria-hidden="true"></i>
+                                        </Row>
+                                        <Row>
+                                            <span class="post_like_content">{val.post_like}</span>
+                                        </Row>
+                                        <Row>
+                                            <i className="fa fa-sort-desc fa-2x" aria-hidden="true"></i>
+                                        </Row>
+                                    </Col>
+                                </Row>
+                            </Col>
+                            <Col md="10" xs="10">
+                                <Row>
+                                    <Col id="content_body">
+                                        <div id="content_state" className="justify-content-center row">
+                                            <div className="col-10">
+                                                <div id="user_detail">
+                                                    <span className="mr-1 ft-text-sm" id="user_name">
+                                                        { val.name == undefined
+                                                            ? <>guest</>
+                                                            : val.name
+                                                        }
+                                                    </span>
+                                                    <span className="mr-1 ft-text-sm" id="post_time">
+                                                        { val.reg_date == undefined
+                                                            ? <>최근</>
+                                                            : val.reg_date
+                                                        }
+                                                    </span>
+                                                    <span className="mr-1 ft-text-sm" id="post_rate">
+                                                        { val.post_rate == undefined
+                                                            ? <>not rating</>
+                                                            : val.post_rate
+                                                        }
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div className="col-2">
+                                            </div>
+                                        </div>
+                                        <div id="content_detail" className="description">
+                                            <BoardContent src={val.contents} type={val.post_type} />
+                                        </div>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col id="board_interaction">
+                                        <Comment id="board_interaction_content" count={val.comment_count}/>
+                                        <Shared id="board_interaction_content"/>
+                                        <Settings id="board_interaction_content"/>
+                                    </Col>
+                                </Row>
+                            </Col>
+                        </Row>
+                    </div>
                 </div>
-            </div>
+            );
+        }
+
+        return (
+            <>
+                {post_list}
+            </>
         );
     }
 }

@@ -5,6 +5,7 @@ import { Profile, UseFriendStatus, AlertMark } from '@/components';
 import { AuthRoute, signIn } from '@/lib';
 import './Login.css';
 import { useCookies } from 'react-cookie';
+import { setCookie, getCookie } from '@/admin/cookie';
 
 class Login extends Component {
     constructor (props) {
@@ -28,28 +29,33 @@ class Login extends Component {
         .then (data => {
             console.log(data);
             if (data.success === false) {
-                this.setState({ 
+                this.setState({
                     alertType: false,
                     alertMsg: data.msg
                 });
                 console.log('fail');
             } else {
-                this.setState({ 
+                this.setState({
                     alertType: true,
                     alertMsg: ''
                 });
                 setCookie('auth', data, { path: '/' });
+                setCookie('chatApp_user_id', this.state.userId, { path: '/' });
                 console.log('done');
             }
         });
     }
-    
+
     handleChange = (e) => {
         this.setState({
             alertType: '',
             alertMsg: '',
             [e.target.id]: e.target.value
         })
+    }
+
+    handleMove = (e) => {
+        this.props.history.push('/signUp');
     }
 
     render () {
@@ -95,6 +101,7 @@ class Login extends Component {
                         <Row>
                             <Col md="3">
                                 <FormGroup>
+                                    <Button onClick={this.handleMove}>SignUp</Button>
                                     <Button onClick={this.handleAction}>ok</Button>
                                     <Button><Link to="/signUp" onClick={() => { this.props.history.push('/login'); }}>SignUp</Link></Button>
                                 </FormGroup>

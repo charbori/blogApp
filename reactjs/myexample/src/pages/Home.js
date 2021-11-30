@@ -36,7 +36,7 @@ class Home extends Component {
     }
     
     moveHome (props) {
-        props.history.push('/');
+        window.location.href = '/';
     }
     
     render () {
@@ -51,16 +51,14 @@ class Home extends Component {
                 </Breadcrumb>
                 <Row>
                     <Col md="8" xs="12">
-                        <Board location={this.props.location}
-                            match={this.props.match}
-                            history={this.props.history}/>
+                        <Board location={this.props.location} match={this.props.match} history={this.props.history}/>
                     </Col>
                     <Col md="4" id="sidebar-col">
                         <SidebarTab />
                     </Col>
                 </Row>
+                <SimpleFooter />
             </Container>
-            <SimpleFooter />
             </>
         );
     }

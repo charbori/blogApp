@@ -21,9 +21,6 @@ class Signup extends React.Component {
             this.setState.msg = '아이디를 확인해주세요';
             return;
         }
-
-        console.log(this.props.location);
-
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -32,7 +29,7 @@ class Signup extends React.Component {
         fetch ("http://192.168.219.109:8888/api/auth/signUp", requestOptions)
         .then (response => response.json())
         .then (data => {
-            
+            window.location.href = '/';
         });
     }
     
@@ -53,9 +50,9 @@ class Signup extends React.Component {
         }
         if (this.state.userId.length < 2) {
             return ;
-        }
+        } 
 
-        console.log(props.location);
+        console.log(this.props.location);
 
         const url = "http://192.168.219.109:8888/api/auth/signUp/" + this.state.userId;
         fetch (url, requestOptions)

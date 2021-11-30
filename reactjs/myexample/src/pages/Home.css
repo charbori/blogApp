@@ -1,11 +1,14 @@
-#main-container {
-    margin-top : 68px;
+body {
+    min-height: 100%;
 }
 html {
     min-height: 100%;
 }
-body {
+#main-container {
+    margin-top : 68px;
     min-height: 100%;
+    position: relative;
+    padding-bottom: 81px; 
 }
 @media (max-width : 769px) {
     #sidebar-col {

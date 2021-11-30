@@ -1,4 +1,7 @@
 .board_insert {
     margin-bottom: 12px;
-    opacity: 0.5;
+}
+
+.board_insert_top {
+    margin-top: 12px;
 }

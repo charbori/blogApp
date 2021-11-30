@@ -4,6 +4,11 @@ const db = require('../nodeApi/mysqlConnect.js');
 const jwt = require('../middleware/jwt.js');
 const cryptoLib = require('../lib/cryptoData');
 const { reject } = require('underscore');
+const cookieParser = require('cookie-parser');
+
+const app = express();
+app.use(cookieParser);
+
 var result = {
     success : false,
     msg : ''
@@ -42,6 +47,7 @@ router.post('/login', function(req, res) {
                         result.success = true;
                         result.data = tokenData;
                         result.msg = '';
+                        res.cookie('chatApp_user_id', user_data.userId);
                         res.send(result);
                     } else {
                         result.msg = '아이디 패스워드를 확인해주세요.';
@@ -77,7 +83,7 @@ router.get('/signUp/:userId', function(req, res) {
                 res.send(result);
             }
         }
-    });
+    }); 
 });
 
 //화원 가입
@@ -86,12 +92,13 @@ router.post('/signUp', function(req, res) {
         result.msg = '회원 데이터를 다시 입력해주세요';
         res.send(result);
     }
+    // post 아이디 중복체크
     const cryptoPassword = cryptoLib.getEncryptData(req.body.userPw);
 
     cryptoPassword.then((cryptoRes) => {
         if (cryptoRes.length > 0) {
             const sql = "insert into user(`id`,`name`,`password`,`reg_date`) values('" + req.body.userId + "','" + req.body.userName + "','" + cryptoRes + "',now());";
-            
+
             db.query(sql, function(err, results, fields) {
                 if (err) {
                     console.log(err);

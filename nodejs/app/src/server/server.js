@@ -12,7 +12,7 @@ import api from '../routes/index';
 import apiBoard from '../routes/boardRouter';
 import apiMenu from '../routes/menu';
 import cors from 'cors';
-import login from '../routes/login'
+import login from '../routes/login';
 
 app.use(cors());
 app.use(bodyParser.json());

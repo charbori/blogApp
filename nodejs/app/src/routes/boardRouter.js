@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 const db = require('../nodeApi/mysqlConnect.js');
 const boardController = require('../controller/boardController.js');
+const { post } = require('superagent');
+const { logger } = require('../config/winston.js');
 const test_table = 'post';
 
 var result_send = {
@@ -35,6 +37,8 @@ router.get('/findUser', function(req, res) {
 });
 
 router.get('/post/add', boardController.addPost);
+
+router.put('/post', boardController.addPost);
 
 router.get('/post/delete', function(req, res) {
     // check req
@@ -84,27 +88,25 @@ router.get('/post/view', function(req, res) {
 router.get('/post', function(req, res) {
     var sql =   "SELECT * \
                    FROM post \
-                  WHERE hide='0' \
-                    AND ban='0' \
-               ORDER BY reg_date asc \
-                  LIMIT 1";
-    var sql_user = "SELECT * \
-                      FROM user \
-                     WHERE id ='";
+              LEFT JOIN user \
+                     ON post.user_id = user.id \
+                  WHERE post.hide='0' \
+                    AND post.ban='0' \
+                    AND post.contents != '' \
+               ORDER BY post.reg_date desc \
+                  LIMIT 10";
 
     function result_post() {
         return new Promise((resolve, reject) => {
             db.query(sql, function (error, results, fields) {
                 if (error) {
-                    console.log(error);
+                    logger.error('###POST GET # result_post 게시글 조회 에러');
+                    res.send(JSON.stringify({ success: false, data: ''}));
                     resolve(false);
                 } else if (results.length > 0 ) {
-                    result_send.user_data.id = results[0].user_id;
-                    result_send.post_data.time = results[0].reg_date;
-                    result_send.post_data.rate = results[0].post_count;
-                    result_send.post_data.like = results[0].post_like;
-                    result_send.content_data.detail = results[0].contents;
-                    result_send.content_data.comment_data = results[0].comment_count;
+ 
+                    console.log(results);
+                    res.send(JSON.stringify({ success: true, data:results }));
                     resolve(true);
                 }
             });
@@ -112,23 +114,8 @@ router.get('/post', function(req, res) {
     }
     result_post().then(row => {
         if (row == false) {
-            var result_data = JSON.stringify({ success: false });
-            res.send(result_data);
+            return;
         }
-        sql_user = sql_user + result_send.user_data.id + "'";
-
-        db.query(sql_user, function (error, results, fields) {
-            if (error) {
-                var result_data = JSON.stringify({ success: false });
-                console.log(error);
-                res.send(result_data);
-            } else if (results.length > 0 ) {
-                result_send.user_data.name = results[0].name;
-
-                var result_data = JSON.stringify({ success: true, data:result_send });
-                res.send(result_data);
-            }
-        });
     });
 });
 

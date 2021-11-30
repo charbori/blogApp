@@ -20,6 +20,7 @@ import { Link, Route } from 'react-router-dom';
 import AlertMark from "@/components/alertMark";
 import "@/assets/vendor/font-awesome/css/font-awesome.css";
 import "@/assets/css/base.css";
+import { setCookie, getCookie } from '@/admin/cookie';
 
 class LoginPopup extends React.Component {
   state = {
@@ -51,12 +52,15 @@ class LoginPopup extends React.Component {
                   alertMsg: ''
               });
               setCookie('auth', data, { path: '/' });
+              setCookie('chatApp_user_id', this.state.userId, { path: '/' });
+              console.log('done');
               this.toggleModal("exampleModal");
           } else {
               this.setState({
                   alertType: false,
                   alertMsg: data.msg
               });
+              console.log('fail');
           }
       });
   }
