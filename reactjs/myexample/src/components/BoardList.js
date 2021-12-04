@@ -5,6 +5,9 @@ import { Comment, Shared, Settings } from '@/components/buttons';
 import { BoardContent, Post } from '@/components';
 import "./BoardList.css";
 import { Config } from '@/admin/config';
+import { setCookie, getCookie, removeCookie } from '@/admin/cookie';
+import { useRef } from 'react';
+import { useEffect } from 'react';
 
 const NODE_SERVER = Config.NODE_SERVER;
 
@@ -15,21 +18,77 @@ class BoardList extends Component {
             user_data: props.user_data,
             post_data: '',
             content_data: props.content_data,
-            auth: ''
+            auth: '',
         }
-
         if (typeof content_data == 'undefined' || Object.keys(content_data).includes('type')) {
             this.state.content_data = {};
             this.state.content_data.type = "detail";
             this.state.content_data.src = 'src';
         }
+        this.likeList = new Map();
     }
 
+    addLikeListRef (type, val) {
+        this.likeList.set(type + val, React.createRef());
+        return this.likeList.get(type + val);
+    }
+    
     // login popup > return
     handleLogin (resultAuth) {
         this.setState({ auth: resultAuth });
     }
 
+    handleClickLike (post_idx, type, event) {
+        if (type == undefined || post_idx == undefined) {
+            console.log('error');
+            return ;
+        }
+
+        var cookie_like = getCookie('like_' + post_idx);
+        var set_type = '';
+
+        if (cookie_like != undefined) {
+            set_type = (cookie_like.substring(0, 7) == type) ? 'add' : 'sub';
+            this.likeList.get("c_like_" + post_idx).current.style.color = '#bbbbbb';
+            this.likeList.get("c_dislike_" + post_idx).current.style.color = '#bbbbbb';
+        } else {
+            set_type = (type == 'like') ? 'add' : 'sub';
+            if (type == 'like') {
+                this.likeList.get("c_like_" + post_idx).current.style.color = '#5e72e4';
+            } else {
+                this.likeList.get("c_dislike_" + post_idx).current.style.color = '#5e72e4';
+            }
+        }
+        
+        if (set_type.length > 0) {
+            fetch (NODE_SERVER + 'board/like', { 
+                method: "POST",
+                body: JSON.stringify({ post_idx: post_idx, type: set_type }),
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
+            })
+            .then (response => response.json())
+            .then (data => {
+                if (data.success == true) {
+                    const like_val = this.state.post_data;
+                    const like_figure = 1;
+                    like_val.forEach (ele => {
+                        if (ele.idx == post_idx) {
+                            if (cookie_like != undefined) { // 초기화
+                                ele.post_like = (cookie_like.substring(0, 7) == type) ? ele.post_like + like_figure : ele.post_like - like_figure;
+                                removeCookie("like_" + ele.idx);
+                            } else {
+                                ele.post_like = (type == 'like') ? ele.post_like + like_figure : ele.post_like - like_figure;
+                                setCookie("like_" + ele.idx, type + "_" + ele.post_like, { path: '/' });
+                            }
+                        }
+                    });
+                    this.setState({
+                        post_data: like_val
+                    });
+                }
+            });
+        }
+    }
     componentDidMount () {
         fetch (NODE_SERVER + 'board/post', {
             method: "GET",
@@ -67,21 +126,29 @@ class BoardList extends Component {
         if (this.state.post_data == '') {
             post_list = this.state.post_data;
         } else {
-            post_list = this.state.post_data.map((val) => 
+            post_list = this.state.post_data.map((val, i) => 
                 <div className="shadow card mb-12">
                     <div className="board-body">
-                        <Row>
+                        <Row id={val.idx}>
                             <Col md="1" xs="1">
                                 <Row>
                                     <Col id="promote_like">
                                         <Row>
-                                            <i className="fa fa-sort-asc fa-2x" aria-hidden="true"></i>
+                                            <a href="#none" ref={ this.addLikeListRef('c_like_', val.idx) } 
+                                                onClick={ (e) => this.handleClickLike(val.idx, 'like', e) }
+                                                id={"like_" + val.idx} style={{color:'#bbbbbb'}}>
+                                                <i className="fa fa-sort-asc fa-2x" aria-hidden="true"></i>
+                                                </a>
                                         </Row>
                                         <Row>
-                                            <span class="post_like_content">{val.post_like}</span>
+                                            <span className="post_like_content">{val.post_like}</span>
                                         </Row>
                                         <Row>
-                                            <i className="fa fa-sort-desc fa-2x" aria-hidden="true"></i>
+                                            <a href="#none" ref={ this.addLikeListRef('c_dislike_', val.idx) } 
+                                                onClick={ (e) =>  this.handleClickLike(val.idx, 'dislike', e) }
+                                                id={"dislike_" +val.idx} style={{color:'#bbbbbb'}}>
+                                                <i className="fa fa-sort-desc fa-2x" name="dislike"></i>
+                                                </a>
                                         </Row>
                                     </Col>
                                 </Row>

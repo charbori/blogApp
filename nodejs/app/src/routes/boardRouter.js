@@ -12,6 +12,7 @@ var result_send = {
         id: ''
     },
     post_data: {
+        idx:'',
         time: '',
         rate: '',
         action: '',
@@ -86,7 +87,16 @@ router.get('/post/view', function(req, res) {
 });
 
 router.get('/post', function(req, res) {
-    var sql =   "SELECT * \
+    var sql =   "SELECT post.idx, \
+                        post.post_like, \
+                        post.post_dislike, \
+                        post.hide, \
+                        post.ban,  \
+                        post.reg_date,  \
+                        post.contents,  \
+                        post.post_type,  \
+                        post.comment_count,  \
+                        user.name \
                    FROM post \
               LEFT JOIN user \
                      ON post.user_id = user.id \
@@ -117,6 +127,30 @@ router.get('/post', function(req, res) {
             return;
         }
     });
+});
+
+router.post('/like', function(req, res) {
+    if (req != undefined && Object.keys(req.body).includes('post_idx')) {
+        var sql = '';
+        if (req.body.type == 'add') {
+            sql = "UPDATE post SET post_like = post_like + 1 WHERE idx=" + req.body.post_idx;
+        } else if (req.body.type == 'sub') {
+            sql = "UPDATE post SET post_like = post_like-1 WHERE idx=" + req.body.post_idx;
+        }
+        console.log (sql);
+        db.query(sql, function (error, results, fields) {
+            if (error) {
+                logger.error('###like GET # like, dislike 게시글 조회 에러');
+                res.send(JSON.stringify({ success: false, data: ''}));
+            } else {
+                console.log(results);
+                res.send(JSON.stringify({ success: true, data: ''}));
+            }
+        });
+    } else {
+        res.send(JSON.stringify({ success: false, data: ''}));
+    }
+
 });
 
 module.exports = router;
