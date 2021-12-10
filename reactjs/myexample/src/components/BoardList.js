@@ -122,24 +122,6 @@ class BoardList extends Component {
                 }
             });
         });
-
-        /*
-        const post_test = {
-            user_data: {
-                name: "test",
-                id: "cjh93"
-            },
-            post_data: {
-                time: "6 hour ago",
-                rate: "1|1|1",
-                action: "Join",
-                like: 1200
-            },
-            content_data: {
-                detail: "detail"
-            }
-        };
-        */
     }
 
     render () {
