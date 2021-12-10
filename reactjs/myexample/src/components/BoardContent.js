@@ -4,7 +4,6 @@ const BoardContent = ({ src, type }) => {
     if (typeof type == 'undefined' && type == "IMG") {
         return (
             <img src={src}/>
-            
         );
     } else {
         return (
