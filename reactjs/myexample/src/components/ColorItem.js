@@ -1,15 +1,5 @@
 import React, { Component } from 'react';
 import './ColorItem.css';
-/*
-class ColorItem extends Component {
-
-    render() {
-        const { color, onColorChange, colorItemStyle } = this.props;
-
-
-    }
-}
-*/
 
 const ColorItem = ({color, onColorChange, colorItemStyle}) => {
 
