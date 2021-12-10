@@ -52,10 +52,9 @@ class BoardList extends Component {
             
             return;
         }
-        
+
         var cookie_like = getCookie('like_' + post_idx);
         var set_type = '';
-
         if (cookie_like != undefined) {
             set_type = (cookie_like.substring(0, 7) == type) ? 'add' : 'sub';
             this.likeList.get("c_like_" + post_idx).current.style.color = '#bbbbbb';
