@@ -52,6 +52,7 @@ class BoardList extends Component {
             
             return;
         }
+        
         var cookie_like = getCookie('like_' + post_idx);
         var set_type = '';
 
