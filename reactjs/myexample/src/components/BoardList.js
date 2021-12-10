@@ -47,13 +47,11 @@ class BoardList extends Component {
             console.log('error');
             return ;
         }
-
         if (getCookie('chatApp_user_id') == undefined) {
             this.setState({useModalState : true});
             
             return;
         }
-
         var cookie_like = getCookie('like_' + post_idx);
         var set_type = '';
 
