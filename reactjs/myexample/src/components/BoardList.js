@@ -124,7 +124,6 @@ class BoardList extends Component {
         });
     }
 
-    
     render () {
         var post_list = '';
         if (this.state.post_data == '') {
