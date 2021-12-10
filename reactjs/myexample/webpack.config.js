@@ -38,7 +38,7 @@ module.exports = {
 	    },
 		extensions: ['.js', '.jsx', '.css', 'scss']
 	},
-			 /*
+	/*
 	plugins: [
 		// public/index.html write contents for laoding index.js 
 		new HtmlWebpackPlugin()
