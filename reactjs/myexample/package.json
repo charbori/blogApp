@@ -31,9 +31,10 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "build": "webpack serve --mode=production",
-    "start": "webpack serve --mode=production --open --hot",
-    "dev": "webpack serve --mode=development --open --hot"
+    "build": "webpack",
+    "prod": "npx webpack serve",
+    "start": "npx webpack serve",
+    "dev": "webpack"
   },
   "author": "",
   "license": "ISC",

@@ -23,18 +23,17 @@ import "@/assets/css/base.css";
 import { setCookie, getCookie } from '@/admin/cookie';
 
 class LoginPopup extends React.Component {
-  state = {
-    exampleModal: false,
-    userId : '',
-    userPw : '',
-    alertType : '',
-    alertMsg : '',
-  };
-  toggleModal = state => {
-    this.setState({
-      [state]: !this.state[state],
-    });
-  };
+  constructor (props) {
+    super(props);
+    this.state = {
+      userId : '',
+      userPw : '',
+      alertType : '',
+      alertMsg : '',
+    };
+  }
+
+  toggleModal = this.props.modalEvent;
 
   checkLogin = (e) => {
       const requestOptions = {
@@ -54,7 +53,7 @@ class LoginPopup extends React.Component {
               setCookie('auth', data, { path: '/' });
               setCookie('chatApp_user_id', this.state.userId, { path: '/' });
               console.log('done');
-              this.toggleModal("exampleModal");
+              this.toggleModal();
           } else {
               this.setState({
                   alertType: false,
@@ -74,21 +73,28 @@ class LoginPopup extends React.Component {
   }
 
   render() {
+    var iconDisplay = true;
+    if (Object.keys(this.props).includes('displayNot')) {
+        iconDisplay = false;
+    }
     return (
       <>
         {/* Button trigger modal */}
-        <span
+        {   iconDisplay &&
+          <span
           color="primary"
           type="button"
-          onClick={() => this.toggleModal("exampleModal")}
-        >
+          onClick={() => this.toggleModal()}
+          >
             <i className="fas fa-user navIconStyle"></i>
-        </span>
+          </span>
+        }
+
         {/* Modal */}
         <Modal
           className="modal-dialog-centered"
-          isOpen={this.state.exampleModal}
-          toggle={() => this.toggleModal("exampleModal")}
+          isOpen={this.props.modalState}
+          toggle={() => this.toggleModal()}
         >
           <div className="modal-header">
             <h5 className="modal-title" id="exampleModalLabel">
@@ -99,7 +105,7 @@ class LoginPopup extends React.Component {
               className="close"
               data-dismiss="modal"
               type="button"
-              onClick={() => this.toggleModal("exampleModal")}
+              onClick={() => this.toggleModal()}
             >
               <span aria-hidden={true}>×</span>
             </button>
@@ -145,7 +151,7 @@ class LoginPopup extends React.Component {
                 </span>
                 <span>
                     <Button onClick={this.checkLogin}>ok</Button>
-                    <Button onClick={() => this.toggleModal("exampleModal")}>cancel</Button>
+                    <Button onClick={() => this.toggleModal()}>cancel</Button>
                 </span>
             </div>
           </div>

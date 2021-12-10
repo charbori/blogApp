@@ -8,6 +8,7 @@ import { Config } from '@/admin/config';
 import { setCookie, getCookie, removeCookie } from '@/admin/cookie';
 import { useRef } from 'react';
 import { useEffect } from 'react';
+import { LoginPopup } from "@/components";
 
 const NODE_SERVER = Config.NODE_SERVER;
 
@@ -19,6 +20,7 @@ class BoardList extends Component {
             post_data: '',
             content_data: props.content_data,
             auth: '',
+            useModalState: false,
         }
         if (typeof content_data == 'undefined' || Object.keys(content_data).includes('type')) {
             this.state.content_data = {};
@@ -32,7 +34,9 @@ class BoardList extends Component {
         this.likeList.set(type + val, React.createRef());
         return this.likeList.get(type + val);
     }
-    
+    modalEvent = () => {
+        this.setState({ useModalState : !this.state.useModalState });
+    }
     // login popup > return
     handleLogin (resultAuth) {
         this.setState({ auth: resultAuth });
@@ -42,6 +46,12 @@ class BoardList extends Component {
         if (type == undefined || post_idx == undefined) {
             console.log('error');
             return ;
+        }
+
+        if (getCookie('chatApp_user_id') == undefined) {
+            this.setState({useModalState : true});
+            
+            return;
         }
 
         var cookie_like = getCookie('like_' + post_idx);
@@ -99,6 +109,17 @@ class BoardList extends Component {
             console.log(data);
             this.setState({
                 post_data: data.data
+            });
+        })
+        .then(() => {
+            var cookie_like = '';
+            var temp_like_type = '';
+            this.state.post_data.forEach(post_data => {
+                cookie_like = getCookie('like_' + post_data.idx);
+                if (cookie_like != undefined) {
+                    temp_like_type = (cookie_like.substring(0, 4) == 'like') ? 'c_like_' : 'c_dislike_';
+                    this.likeList.get(temp_like_type + post_data.idx).current.style.color = '#5e72e4';
+                }
             });
         });
 
@@ -161,7 +182,7 @@ class BoardList extends Component {
                                                 <div id="user_detail">
                                                     <span className="mr-1 ft-text-sm" id="user_name">
                                                         { val.name == undefined
-                                                            ? <>guest</>
+                                                            ? <>guest none</>
                                                             : val.name
                                                         }
                                                     </span>
@@ -203,6 +224,7 @@ class BoardList extends Component {
 
         return (
             <>
+                <LoginPopup modalState={this.state.useModalState}  modalEvent={this.modalEvent} displayNot={false}/>
                 {post_list}
             </>
         );

@@ -62,7 +62,8 @@ class DemoNavbar extends Component {
         this.state = {
               collapseClasses: "",
               collapseOpen: false,
-              categoryData: ''
+              categoryData: '',
+              modalState: false
         };
     }
 
@@ -86,7 +87,10 @@ class DemoNavbar extends Component {
         // initialise
         headroom.init();
     }
-
+  modalEvent = () => {
+      console.log('run');
+      this.setState({ modalState : !this.state.modalState });
+  }
   onExiting = () => {
     this.setState({
       collapseClasses: "collapsing-out"
@@ -144,7 +148,7 @@ class DemoNavbar extends Component {
                 </Nav>
                 <Nav className="align-items-lg-center ml-lg-auto" navbar>
                   <NavItem>
-                    <LoginPopup />
+                    <LoginPopup modalState={this.state.modalState} modalEvent={this.modalEvent}/>
                   </NavItem>
                   <NavItem>
                     <NavLink

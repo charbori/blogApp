@@ -6,7 +6,7 @@ const publicDir = path.resolve(__dirname, './public');
 module.exports = {
 	name: 'myexample',
 	mode: 'development',
-	entry: './src/index.js',
+	entry: './src',
 	module: {
 		rules: [
 			{
@@ -27,7 +27,8 @@ module.exports = {
 			{
 				test: /\.(png|jpe?g|gif|ico|svg|ttf|eot|woff|woff2)$/i,
 				exclude: /node_modules/,
-				use: 'file-loader?name=[name].[ext]',
+				use: 'file-loader',
+//				use: 'file-loader?name=[name].[ext]',
 			}
 		]
 	},
@@ -37,20 +38,24 @@ module.exports = {
 	    },
 		extensions: ['.js', '.jsx', '.css', 'scss']
 	},
+			 /*
 	plugins: [
-		new HtmlWebpackPlugin({
-			template: 'public/index.html',
-		})
+		// public/index.html write contents for laoding index.js 
+		new HtmlWebpackPlugin()
 	],
+	*/
 	devServer: {
+		contentBase: __dirname + '/public',
 		host: '0.0.0.0',
 		port: 8889,
 		open: true,
+		hot: true,
 		disableHostCheck: true,
 		historyApiFallback: true,
 	},
 	output: {
-	    filename: 'bundle.[hash].js',
-		publicPath: '/'
+	    filename: 'index.js',
+	    path: __dirname + '/public',
+		publicPath: __dirname + '/public'
 	}
 };
