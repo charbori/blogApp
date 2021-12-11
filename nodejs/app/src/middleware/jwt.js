@@ -1,7 +1,5 @@
 var express = require('express');
 const db = require('../nodeApi/mysqlConnect.js');
-const redis = require('redis');
-const client = redis.createClient();
 const crypto = require('crypto');
 const base64url = require('base64url');
 const secretKey = require('../env/secretKey').secretKey;
