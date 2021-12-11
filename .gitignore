@@ -77,3 +77,10 @@ nodejs/app/dist
 *.log
 *.git
 myapp
+
+HEAD
+config
+description
+hooks/
+info/
+redis/
