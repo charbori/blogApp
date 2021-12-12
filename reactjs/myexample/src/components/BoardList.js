@@ -11,6 +11,8 @@ import { useEffect } from 'react';
 import { LoginPopup } from "@/components";
 
 const NODE_SERVER = Config.NODE_SERVER;
+console.log(NODE_SERVER);
+console.log(process.env.NODE_ENV);
 
 class BoardList extends Component {
     constructor (props) {

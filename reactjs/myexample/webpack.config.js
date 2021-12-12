@@ -5,7 +5,6 @@ const publicDir = path.resolve(__dirname, './public');
 
 module.exports = {
 	name: 'myexample',
-	mode: 'development',
 	entry: './src',
 	module: {
 		rules: [
@@ -14,16 +13,16 @@ module.exports = {
 				exclude: /node_modules/,
 				use: 'babel-loader'
 			},
-		    {
+			{
 				test: /\.(css|scss)$/,
 //				exclude: /node_modules/,
 				use: ['style-loader', 'css-loader', 'sass-loader'],
-		    },
-		    {
+			},
+			{
 				test: /\.sass$/,
 				exclude: /node_modules/,
 				use: ['style-loader', 'css-loader', 'sass-loader'],
-		    },
+			},
 			{
 				test: /\.(png|jpe?g|gif|ico|svg|ttf|eot|woff|woff2)$/i,
 				exclude: /node_modules/,
@@ -35,7 +34,7 @@ module.exports = {
 	resolve: {
 		alias: {
 			'@': path.resolve(__dirname, 'src')
-	    },
+		},
 		extensions: ['.js', '.jsx', '.css', 'scss']
 	},
 	/*
@@ -54,8 +53,8 @@ module.exports = {
 		historyApiFallback: true,
 	},
 	output: {
-	    filename: 'index.js',
-	    path: __dirname + '/public',
+		filename: 'index.js',
+		path: __dirname + '/public',
 		publicPath: __dirname + '/public'
 	}
 };

@@ -32,9 +32,9 @@
   },
   "scripts": {
     "build": "webpack",
-    "prod": "npx webpack serve",
-    "start": "npx webpack serve",
-    "dev": "webpack"
+    "prod": "webpack --mode=production",
+    "dev": "webpack --mode=development",
+    "start": "npx webpack serve"
   },
   "author": "",
   "license": "ISC",
