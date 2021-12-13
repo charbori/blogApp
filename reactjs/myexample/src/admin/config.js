@@ -5,7 +5,6 @@ if (process.env.NODE_ENV == 'development') {
 } else {
     ip = '13.209.68.188'; 
 }
-
 export const Config = {
     'NODE_SERVER' : 'http://' + ip + ':8888/api/'
 };
