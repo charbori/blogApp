@@ -44,7 +44,7 @@ module.exports = {
 	],
 	*/
 	devServer: {
-		contentBase: __dirname + '/public',
+		contentBase: __dirname + '/public/',
 		host: '0.0.0.0',
 		port: 8889,
 		open: true,
@@ -54,7 +54,7 @@ module.exports = {
 	},
 	output: {
 		filename: 'index.js',
-		path: __dirname + '/public',
-		publicPath: __dirname + '/public'
+		path: __dirname + '/public/',
+		publicPath: __dirname + '/public/'
 	}
 };
