@@ -71,7 +71,8 @@ nodejs/app/node_modules
 nodejs/app/package-lock.json
 nodejs/app/compiles
 nodejs/app/env
-nodejs/app/src/env
+nodejs/app/src/env/env*
+nodejs/app/src/env/.env*
 nodejs/app/src/.env
 nodejs/app/dist
 *.out
