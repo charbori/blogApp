@@ -13,6 +13,7 @@ exports.addPost = function(req, res) {
         res.send(result);
         return false;
     }
+
     if (req.method != 'GET' && req.method != 'PUT') {
         result.msg = 'method is undefined'
         res.send(result);
