@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link, Route } from 'react-router-dom';
+import { Config } from '@/admin/config';
 import { FormGroup, Form, Input, InputGroupAddon, InputGroupText, InputGroup, Row, Col, Button, Container } from 'reactstrap';
+
+const NODE_SERVER = Config.NODE_SERVER;
 
 class Signup extends React.Component {
     constructor (props) {
@@ -26,7 +29,7 @@ class Signup extends React.Component {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ userId: this.state.userId, userPw: this.state.userPw, userName: this.state.userName })
         }
-        fetch ("http://192.168.219.109:8888/api/auth/signUp", requestOptions)
+        fetch (NODE_SERVER + "auth/signUp", requestOptions)
         .then (response => response.json())
         .then (data => {
             window.location.href = '/';
@@ -54,7 +57,7 @@ class Signup extends React.Component {
 
         console.log(this.props.location);
 
-        const url = "http://192.168.219.109:8888/api/auth/signUp/" + this.state.userId;
+        const url = NODE_SERVER + "auth/signUp/" + this.state.userId;
         fetch (url, requestOptions)
         .then (response => response.json())
         .then (data => {

@@ -20,7 +20,10 @@ import { Link, Route } from 'react-router-dom';
 import AlertMark from "@/components/alertMark";
 import "@/assets/vendor/font-awesome/css/font-awesome.css";
 import "@/assets/css/base.css";
+import { Config } from '@/admin/config';
 import { setCookie, getCookie } from '@/admin/cookie';
+
+const NODE_SERVER = Config.NODE_SERVER;
 
 class LoginPopup extends React.Component {
   constructor (props) {
@@ -42,7 +45,7 @@ class LoginPopup extends React.Component {
           body: JSON.stringify({ userId: this.state.userId, userPw: this.state.userPw, authType: 'guest' })
       };
 
-      fetch ("http://192.168.219.109:8888/api/auth/login", requestOptions)
+      fetch (NODE_SERVER + "auth/login", requestOptions)
       .then (response => response.json())
       .then (data => {
           if (data.success === true) {

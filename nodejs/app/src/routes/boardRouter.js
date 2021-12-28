@@ -4,6 +4,7 @@ const db = require('../nodeApi/mysqlConnect.js');
 const boardController = require('../controller/boardController.js');
 const { post } = require('superagent');
 const { logger } = require('../config/winston.js');
+const { encode, decode } = require('html-entities');
 const test_table = 'post';
 
 var result_send = {
@@ -68,25 +69,13 @@ router.get('/post/delete', function(req, res) {
     });
 });
 
-router.get('/post/view', function(req, res) {
-    // check req
-    var params = new Array();
-    var sql    = "SELECT `idx`, `title`, `contents`, `user_id`  \
-                  FROM " + test_table + "                       \
-                  WHERE idx > " + req.query.start;
-
-    db.query(sql, function (error, results, fields) {
-        if (error) {
-            var result_data = JSON.stringify({ success: false, data:"" });
-            res.send(result_data);
-        } else {
-            var result_data = JSON.stringify({ success: true, data:results });
-            res.send(result_data);
-        }
-    });
-});
-
 router.get('/post', function(req, res) {
+    var add_where = "ORDER BY post.reg_date desc \
+                    LIMIT 10";
+    if (req.query != 'undefined' && req.query.post_idx > 0) {
+        add_where = " AND post.idx = " + req.query.post_idx;
+    }
+
     var sql =   "SELECT post.idx, \
                         post.post_like, \
                         post.post_dislike, \
@@ -102,13 +91,14 @@ router.get('/post', function(req, res) {
                      ON post.user_id = user.id \
                   WHERE post.hide='0' \
                     AND post.ban='0' \
-                    AND post.contents != '' \
-               ORDER BY post.reg_date desc \
-                  LIMIT 10";
+                    AND post.contents != ''" + add_where;
 
     function result_post() {
         return new Promise((resolve, reject) => {
             db.query(sql, function (error, results, fields) {
+                results.forEach(element => {
+                    element.contents = decode(element.contents);
+                });
                 if (error) {
                     logger.error('###POST GET # result_post 게시글 조회 에러');
                     res.send(JSON.stringify({ success: false, data: ''}));

@@ -11,8 +11,6 @@ import { useEffect } from 'react';
 import { LoginPopup } from "@/components";
 
 const NODE_SERVER = Config.NODE_SERVER;
-console.log(NODE_SERVER);
-console.log(process.env.NODE_ENV);
 
 class BoardList extends Component {
     constructor (props) {
@@ -43,7 +41,9 @@ class BoardList extends Component {
     handleLogin (resultAuth) {
         this.setState({ auth: resultAuth });
     }
-
+    handleViewPost (post_idx) {
+        this.props.history.push('/post/' + post_idx);
+    }
     handleClickLike (post_idx, type, event) {
         if (type == undefined || post_idx == undefined) {
             console.log('error');
@@ -133,7 +133,7 @@ class BoardList extends Component {
             post_list = this.state.post_data.map((val, i) => 
                 <div className="shadow card mb-12">
                     <div className="board-body">
-                        <Row id={val.idx}>
+                        <Row id={val.idx} onClick={ (e) => this.handleViewPost(val.idx) }>
                             <Col md="1" xs="1">
                                 <Row>
                                     <Col id="promote_like">

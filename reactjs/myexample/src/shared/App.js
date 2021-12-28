@@ -17,6 +17,10 @@ class App extends Component {
                         </Route>
                         <Route path="/board/post/:action" component={Board}>
                         </Route>
+                        <Route exact path="/post" component={Post}>
+                        </Route>
+                        <Route path="/post/:view" component={Post}>
+                        </Route>
                     </Switch>
                 </div>
                 <div>

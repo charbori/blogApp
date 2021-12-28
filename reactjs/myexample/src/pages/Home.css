@@ -6,7 +6,7 @@ html {
 }
 #main-container {
     margin-top : 68px;
-    min-height: 100%;
+    min-height: 780px;
     position: relative;
     padding-bottom: 81px; 
 }
@@ -14,4 +14,11 @@ html {
     #sidebar-col {
         display : none;
     }
+}
+.box {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+.box::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
 }

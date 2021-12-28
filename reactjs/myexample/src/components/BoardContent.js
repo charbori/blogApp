@@ -7,7 +7,7 @@ const BoardContent = ({ src, type }) => {
         );
     } else {
         return (
-            <span>{src}</span>
+            <span dangerouslySetInnerHTML={ {__html: src} } ></span>
         );
     }
 }

@@ -27,7 +27,8 @@ import "@/assets/css/base.css";
 import UncontrolledDropdownNav from "@/components/Navbars/UncontrolledDropdownNav.js";
 // reactstrap components
 import { Home, About, Post, TodoList, Sample, Board, Prepare, TaskList } from '@/pages';
-import { LoginPopup } from "@/components";
+import { LoginPopup, Logout } from "@/components";
+import { setCookie, getCookie } from '@/admin/cookie';
 import {
   Button,
   UncontrolledCollapse,
@@ -60,10 +61,10 @@ class DemoNavbar extends Component {
     constructor (props) {
         super (props);
         this.state = {
-              collapseClasses: "",
-              collapseOpen: false,
-              categoryData: '',
-              modalState: false
+            collapseClasses: "",
+            collapseOpen: false,
+            categoryData: '',
+            modalState: false
         };
     }
 
@@ -87,104 +88,107 @@ class DemoNavbar extends Component {
         // initialise
         headroom.init();
     }
-  modalEvent = () => {
-      console.log('run');
-      this.setState({ modalState : !this.state.modalState });
-  }
-  onExiting = () => {
-    this.setState({
-      collapseClasses: "collapsing-out"
-    });
-  };
+    modalEvent = () => {
+        console.log('run');
+        this.setState({ modalState : !this.state.modalState });
+    }
+    onExiting = () => {
+        this.setState({
+            collapseClasses: "collapsing-out"
+        });
+    };
 
-  onExited = () => {
-    this.setState({
-      collapseClasses: ""
-    });
-  };
+    onExited = () => {
+        this.setState({
+            collapseClasses: ""
+        });
+    };
 
-  handleSubmit = () => {
-    console.log("handle search event");
-  };
+    handleSubmit = () => {
+        console.log("handle search event");
+    };
 
-  render() {
-    return (
-        <header className="header-global">
-          <Navbar
-            className="navbar-main navbar-light headroom"
-            expand="lg"
-            id="navbar-main"
-          >
-            <Container id="navbar-cont">
-              <Link to="/">
-                <b className="navbar-theme-title">DEV</b>
-              </Link>
-              <button className="navbar-toggler" id="navbar_global">
-                <i className="fas fa-align-justify navIconStyle"></i>
-              </button>
-              <UncontrolledCollapse
-                toggler="#navbar_global"
-                navbar
-                className={this.state.collapseClasses}
-                onExiting={this.onExiting}
-                onExited={this.onExited}
+    render() {
+        return (
+            <header className="header-global">
+              <Navbar
+                className="navbar-main navbar-light headroom"
+                expand="lg"
+                id="navbar-main"
               >
-                <div className="navbar-collapse-header">
-                  <Row>
-                    <Col className="collapse-brand" xs="6">
-                      <Link to="/">
-                        <i className="fas fa-home fa-3x baseIconStyle"></i>
-                      </Link>
-                    </Col>
-                    <Col className="collapse-close" xs="6">
-                      <button className="navbar-toggler" id="navbar_global">
-                        <i className="fas fa-plus baseIconStyle"></i>
-                      </button>
-                    </Col>
-                  </Row>
-                </div>
-                <Nav className="navbar-nav-hover align-items-lg-center" navbar>
-                  <UncontrolledDropdownNav navDatas={this.state.categoryData} />
-                </Nav>
-                <Nav className="align-items-lg-center ml-lg-auto" navbar>
-                  <NavItem>
-                    <LoginPopup modalState={this.state.modalState} modalEvent={this.modalEvent}/>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink
-                      className="nav-link-icon"
-                      href="https://github.com/charbori/blogApp"
-                      id="tooltip112445449"
-                      target="_blank"
-                      >
-                      <i class="fab fa-github  navIconStyle"></i>
-                      <span className="nav-link-inner--text d-lg-none ml-2">
-                        Github
-                      </span>
-                    </NavLink>
-                    <UncontrolledTooltip delay={0} target="tooltip112445449">
-                      blogApp project Github
-                    </UncontrolledTooltip>
-                  </NavItem>
-                  <NavItem>
-                    <FormGroup className="mt-4">
-                      <InputGroup className="mb-4" size="sm">
-                        <Input placeholder="Search" type="text"/>
-                        <InputGroupAddon addonType="append">
-                          <InputGroupText className="border-0 p-0">
-                            <Button className="btn-sm ni ni-zoom-split-in" onClick={this.handleSubmit}></Button>
-                          </InputGroupText>
-                        </InputGroupAddon>
-                      </InputGroup>
-                    </FormGroup>
-                  </NavItem>
-                </Nav>
-              </UncontrolledCollapse>
-            </Container>
-          </Navbar>
-        </header>
-    );
-  }
+                <Container id="navbar-cont">
+                  <Link to="/">
+                    <b className="navbar-theme-title">DEV</b>
+                  </Link>
+                  <button className="navbar-toggler" id="navbar_global">
+                    <i className="fas fa-align-justify navIconStyle"></i>
+                  </button>
+                  <UncontrolledCollapse
+                    toggler="#navbar_global"
+                    navbar
+                    className={this.state.collapseClasses}
+                    onExiting={this.onExiting}
+                    onExited={this.onExited}
+                  >
+                    <div className="navbar-collapse-header">
+                      <Row>
+                        <Col className="collapse-brand" xs="6">
+                          <Link to="/">
+                            <i className="fas fa-home fa-3x baseIconStyle"></i>
+                          </Link>
+                        </Col>
+                        <Col className="collapse-close" xs="6">
+                          <button className="navbar-toggler" id="navbar_global">
+                            <i className="fas fa-plus baseIconStyle"></i>
+                          </button>
+                        </Col>
+                      </Row>
+                    </div>
+                    <Nav className="navbar-nav-hover align-items-lg-center" navbar>
+                      <UncontrolledDropdownNav navDatas={this.state.categoryData} />
+                    </Nav>
+                    <Nav className="align-items-lg-center ml-lg-auto" navbar>
+                      <NavItem>
+                        { ( typeof getCookie('chatApp_user_id') === 'undefined' || getCookie('chatApp_user_id').length == 0 )
+                            ? <LoginPopup modalState={this.state.modalState} modalEvent={this.modalEvent}/>
+                            : <Logout />
+                        } 
+                      </NavItem>
+                      <NavItem>
+                        <NavLink
+                          className="nav-link-icon"
+                          href="https://github.com/charbori/blogApp"
+                          id="tooltip112445449"
+                          target="_blank"
+                          >
+                          <i class="fab fa-github  navIconStyle"></i>
+                          <span className="nav-link-inner--text d-lg-none ml-2">
+                            Github
+                          </span>
+                        </NavLink>
+                        <UncontrolledTooltip delay={0} target="tooltip112445449">
+                          blogApp project Github
+                        </UncontrolledTooltip>
+                      </NavItem>
+                      <NavItem>
+                        <FormGroup className="mt-4">
+                          <InputGroup className="mb-4" size="sm">
+                            <Input placeholder="Search" type="text"/>
+                            <InputGroupAddon addonType="append">
+                              <InputGroupText className="border-0 p-0">
+                                <Button className="btn-sm ni ni-zoom-split-in" onClick={this.handleSubmit}></Button>
+                              </InputGroupText>
+                            </InputGroupAddon>
+                          </InputGroup>
+                        </FormGroup>
+                      </NavItem>
+                    </Nav>
+                  </UncontrolledCollapse>
+                </Container>
+              </Navbar>
+            </header>
+        );
+    }
 }
 
 export default DemoNavbar;

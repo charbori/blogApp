@@ -57,8 +57,8 @@ class Home extends Component {
                         <SidebarTab />
                     </Col>
                 </Row>
-                <SimpleFooter />
             </Container>
+            <SimpleFooter />
             </>
         );
     }

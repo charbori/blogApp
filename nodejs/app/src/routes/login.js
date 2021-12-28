@@ -27,18 +27,18 @@ router.post('/login', function(req, res) {
         });
     })().then(function (cryptoPassword) {
         if (cryptoPassword != undefined && cryptoPassword.length > 0) {
-            const sql = "select count(*) \
+            const sql = "select count(*) AS cnt \
             from user     \
             where id='" + req.body.userId + "' \
-            and password='" + cryptoLib.getEncryptData(req.body.userPw) + "'";
-
+            and password='" + cryptoPassword + "'";
+            
             db.query(sql, function(err, results, fields) {
                 if (err) {
                     console.log(err);
                     result.msg = '일시적인 오류가 발생했습니다.';
                     res.send(result);
                 } else {
-                    if (results === '1') {
+                    if (results[0].cnt == '1') {
                         const user_data = {
                             userId : req.body.userId,
                             authType : req.body.authType
