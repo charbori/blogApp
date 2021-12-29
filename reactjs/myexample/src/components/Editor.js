@@ -22,7 +22,7 @@ class Editor extends React.Component {
         super(props)
         this.state = { 
             text: '',
-            user_id: ''
+            user_id: '',
         }
         this.handleChange = this.handleChange.bind(this);
     }
@@ -53,6 +53,16 @@ class Editor extends React.Component {
         window.location.href = '/';
     }
 
+    componentDidMount () {
+        console.log('editor : ' +  this.props.post_data.contents);
+        if (typeof this.props.post_data != 'undefined') {
+            this.setState({ text : this.props.post_data.contents});
+            console.log('editor : ' +  this.props.post_data.contents);
+        } else {
+            console.log('editor params none');
+        }
+    }
+
     render() {
         let contents = <ReactQuill value={this.state.text} onChange={(content, delta, source, editor) => this.handleChange(editor.getHTML())} />;
         var post_idx = 0;
@@ -65,7 +75,7 @@ class Editor extends React.Component {
                 <Container id="main-container" className="mb-3">
                     <Breadcrumb>
                         <BreadcrumbItem>
-                        <span onClick={ () => this.moveHome(this.props) }>Home</span>
+                            <span onClick={ () => this.moveHome(this.props) }>Home</span>
                         </BreadcrumbItem>
                     </Breadcrumb>
                     <Row>

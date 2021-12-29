@@ -42,6 +42,10 @@ router.get('/post/add', boardController.addPost);
 
 router.put('/post', boardController.addPost);
 
+router.post('/post/del', boardController.delPost);
+
+router.post('/post', boardController.updPost); 
+
 router.get('/post/delete', function(req, res) {
     // check req
     var params = new Array();
@@ -85,7 +89,8 @@ router.get('/post', function(req, res) {
                         post.contents,  \
                         post.post_type,  \
                         post.comment_count,  \
-                        user.name \
+                        user.name, \
+                        user.id \
                    FROM post \
               LEFT JOIN user \
                      ON post.user_id = user.id \
@@ -96,15 +101,14 @@ router.get('/post', function(req, res) {
     function result_post() {
         return new Promise((resolve, reject) => {
             db.query(sql, function (error, results, fields) {
-                results.forEach(element => {
-                    element.contents = decode(element.contents);
-                });
                 if (error) {
                     logger.error('###POST GET # result_post 게시글 조회 에러');
                     res.send(JSON.stringify({ success: false, data: ''}));
                     resolve(false);
                 } else if (results.length > 0 ) {
- 
+                    results.forEach(element => {
+                        element.contents = decode(element.contents);
+                    });
                     console.log(results);
                     res.send(JSON.stringify({ success: true, data:results }));
                     resolve(true);

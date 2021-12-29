@@ -5,6 +5,7 @@ import { Prepare } from '@/pages';
 import { BoardList, Editor } from '@/components';
 import "@/assets/css/board.css";
 import { Config } from '@/admin/config';
+import { setCookie, getCookie } from '@/admin/cookie';
 
 const NODE_SERVER = Config.NODE_SERVER;
 
@@ -35,20 +36,50 @@ class Board extends Component {
     handleChange (event) {
         this.setState({ value: event.target.value });
     }
+    componentDidMount () {
+        var post_idx = '';
+
+        if (Object.keys(this.props.match.params).includes('post_Eidx') && this.props.match.params.post_Eidx.length > 0) {
+            const menu = this.props.match.params.post_Eidx;
+            post_idx = this.props.match.params.post_Eidx;
+        } else {
+            post_idx = this.props.match.params.view;
+        }
+
+        console.log('p idx:' + post_idx);
+        fetch (NODE_SERVER + 'board/post?post_idx=' + post_idx, {
+            method: "GET",
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
+        })
+        .then (response => response.json())
+        .then (data => {
+            console.log(data);
+            this.setState({
+                post_data: data.data
+            });
+        });
+    }
     render () {
         const { history, match, location } = this.props;
         let show_menu = 'board';
         let contents = '';
-
         // menu action name
         if (Object.keys(this.props.match.params).includes('action') && this.props.match.params.action.length > 0) {
             const menu = this.props.match.params.action;
-            switch (menu) {
-                case 'edit':
-                    show_menu = 'edit';
+            if (menu == 'edit') {
+                show_menu = 'edit';
+                if (typeof this.props.match.params.post_idx == 'undefined') {
                     contents = <Editor></Editor>;
-                    break;
+                }
             }
+        }
+
+        if (Object.keys(this.props.match.params).includes('post_Eidx') && this.props.match.params.post_Eidx.length > 0) {
+            const menu = this.props.match.params.post_Eidx;
+            console.log('edit upd : ' + this.state.post_data[0]);
+            const new_post = this.state.post_data.filter((ele) => ele.idx == menu);
+            show_menu = 'edit';
+            contents = <Editor post_data={new_post}></Editor>;
         }
 
         return (

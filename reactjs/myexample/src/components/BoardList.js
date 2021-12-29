@@ -100,6 +100,21 @@ class BoardList extends Component {
             });
         }
     }
+
+    onRemove = post_idx => {
+        console.log(post_idx);
+        const data_filter = this.state.post_data.filter((data) =>
+            data.idx != post_idx
+        );
+
+        console.log('list1:' + data_filter);
+        console.log('list2:' + this.state.post_data);
+
+        this.setState({
+            post_data: data_filter 
+        });
+    }
+
     componentDidMount () {
         fetch (NODE_SERVER + 'board/post', {
             method: "GET",
@@ -133,7 +148,7 @@ class BoardList extends Component {
             post_list = this.state.post_data.map((val, i) => 
                 <div className="shadow card mb-12">
                     <div className="board-body">
-                        <Row id={val.idx} onClick={ (e) => this.handleViewPost(val.idx) }>
+                        <Row id={val.idx}>
                             <Col md="1" xs="1">
                                 <Row>
                                     <Col id="promote_like">
@@ -158,7 +173,7 @@ class BoardList extends Component {
                                 </Row>
                             </Col>
                             <Col md="10" xs="10">
-                                <Row>
+                                <Row onClick={ (e) => this.handleViewPost(val.idx) }>
                                     <Col id="content_body">
                                         <div id="content_state" className="justify-content-center row">
                                             <div className="col-10">
@@ -194,8 +209,8 @@ class BoardList extends Component {
                                 <Row>
                                     <Col id="board_interaction">
                                         <Comment id="board_interaction_content" count={val.comment_count}/>
-                                        <Shared id="board_interaction_content"/>
-                                        <Settings id="board_interaction_content"/>
+                                        <Shared id="board_interaction_content" post_idx={val.idx}/>
+                                        <Settings id="board_interaction_content" removeFunc={this.onRemove} post_idx={val.idx} history={history}/>
                                     </Col>
                                 </Row>
                             </Col>
