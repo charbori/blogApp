@@ -25,7 +25,7 @@ class Board extends Component {
                 like: 1200
             },
             content_data: {
-                detail: "detail",
+                detail: "",
                 src: "",
                 comment_count: 0,
                 type: false
@@ -46,14 +46,12 @@ class Board extends Component {
             post_idx = this.props.match.params.view;
         }
 
-        console.log('p idx:' + post_idx);
         fetch (NODE_SERVER + 'board/post?post_idx=' + post_idx, {
             method: "GET",
             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
         })
         .then (response => response.json())
         .then (data => {
-            console.log(data);
             this.setState({
                 post_data: data.data
             });
@@ -76,10 +74,8 @@ class Board extends Component {
 
         if (Object.keys(this.props.match.params).includes('post_Eidx') && this.props.match.params.post_Eidx.length > 0) {
             const menu = this.props.match.params.post_Eidx;
-            console.log('edit upd : ' + this.state.post_data[0]);
-            const new_post = this.state.post_data.filter((ele) => ele.idx == menu);
             show_menu = 'edit';
-            contents = <Editor post_data={new_post}></Editor>;
+            contents = <Editor post_idx={menu} post_data={this.state.content_data.detail}></Editor>;
         }
 
         return (

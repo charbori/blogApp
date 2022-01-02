@@ -42,7 +42,6 @@ class Editor extends React.Component {
         })
         .then (response => response.json())
         .then (data => {
-            console.log (data);
             if (data.success == true) {
                 this.moveHome(this.props);
             }
@@ -54,12 +53,21 @@ class Editor extends React.Component {
     }
 
     componentDidMount () {
-        console.log('editor : ' +  this.props.post_data.contents);
         if (typeof this.props.post_data != 'undefined') {
-            this.setState({ text : this.props.post_data.contents});
-            console.log('editor : ' +  this.props.post_data.contents);
-        } else {
-            console.log('editor params none');
+            this.setState({ text : this.props.post_data});
+        }
+
+        if (Object.keys(this.props).includes('post_idx')) {
+            fetch(NODE_SERVER + 'board/post?post_idx=' + this.props.post_idx, {
+                method: "GET",
+                headers: { 'Content-Type' : 'application/json', 'Accept': 'application/json' }
+            })
+            .then (response => response.json())
+            .then (data => {
+                this.setState({
+                    text : data.data[0].contents
+                });
+            });
         }
     }
 
