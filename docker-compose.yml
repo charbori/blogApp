@@ -9,7 +9,7 @@ services:
             args:
                 buildno: 1
         ports:
-            - "8889:8889"
+            - "80:8080"
         volumes:
             - "$PWD/reactjs:/app"
             - "/app/myexample/node_modules"
@@ -44,7 +44,6 @@ services:
                 buildno: 1
         container_name: nginx
         ports:
-            - "80:80"
             - "1338:1338"
             - "33333:33333"
         depends_on:
