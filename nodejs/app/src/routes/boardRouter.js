@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const db = require('../nodeApi/mysqlConnect.js');
 const boardController = require('../controller/boardController.js');
+const replyController = require('../controller/replyController.js');
 const { post } = require('superagent');
 const { logger } = require('../config/winston.js');
 const { encode, decode } = require('html-entities');
@@ -146,5 +147,14 @@ router.post('/like', function(req, res) {
     }
 
 });
+
+// 댓글
+router.post('/reply/add', replyController.addReply);
+
+router.post('/reply/mod', replyController.modReply);
+
+router.get('/reply', replyController.getReply);
+
+router.post('/reply/del', replyController.delReply);
 
 module.exports = router;

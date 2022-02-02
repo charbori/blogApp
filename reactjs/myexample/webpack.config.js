@@ -2,16 +2,25 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const srcDir = path.resolve(__dirname, './src');
 const publicDir = path.resolve(__dirname, './public');
+const RefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
 	name: 'myexample',
-	entry: './src',
+	entry: './src/index.js',
+	mode: 'development',
 	module: {
 		rules: [
 			{
 				test: /\.(js|jsx)$/,
 				exclude: /node_modules/,
-				use: 'babel-loader'
+				use: {
+					loader: 'babel-loader',
+					options: {
+						presets: ['@babel/preset-env',"@babel/preset-react"],
+						plugins: ['react-refresh/babel']
+					}
+				}
 			},
 			{
 				test: /\.(css|scss)$/,
@@ -43,18 +52,23 @@ module.exports = {
 		new HtmlWebpackPlugin()
 	],
 	*/
+	plugins : [
+		new webpack.HotModuleReplacementPlugin(),
+		new RefreshWebpackPlugin()
+	],
 	devServer: {
 		contentBase: __dirname + '/public/',
 		host: '0.0.0.0',
 		port: '8080',
 		open: true,
 		hot: true,
+		inline: true,
 		disableHostCheck: true,
 		historyApiFallback: true,
 	},
 	output: {
 		filename: 'index.js',
 		path: __dirname + '/public/',
-		publicPath: __dirname + '/public/'
+		//publicPath: __dirname + '/public/'
 	}
 };

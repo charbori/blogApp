@@ -145,8 +145,8 @@ class BoardList extends Component {
         if (this.state.post_data == '') {
             post_list = this.state.post_data;
         } else {
-            post_list = this.state.post_data.map((val, i) => 
-                <div className="shadow card mb-12">
+            post_list = this.state.post_data.map((val, i) =>
+                <div className="shadow card mb-12" key={val.idx}>
                     <div className="board-body">
                         <Row id={val.idx}>
                             <Col md="1" xs="1">

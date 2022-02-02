@@ -19,3 +19,4 @@ export { default as AlertMark } from './alertMark';
 export { default as LoginPopup } from './LoginPopup';
 export { default as Editor } from './Editor';
 export { default as Logout } from './Logout';
+export { default as Reply } from './Reply';

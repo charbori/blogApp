@@ -1,0 +1,10 @@
+.replyName {
+    font-size: small;
+    color: black;
+    font-weight: bold;
+}
+.replyContent {
+    font-weight: normal;
+    font-size: small;
+    margin-left: 12px;
+}

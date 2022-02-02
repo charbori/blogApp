@@ -45,7 +45,7 @@ const UncontrolledDropdownNav = ({ navDatas }) => {
     }
 
     const navMidList = navItems.map((data) =>
-        <UncontrolledDropdown nav>
+        <UncontrolledDropdown nav key={data.index}>
             <DropdownToggle nav>
                 <i className="ni ni-collection d-lg-none mr-1" />
                 <span className="nav-link-inner--text navbar-theme-menu">{data.name}</span>

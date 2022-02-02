@@ -6,7 +6,7 @@ import { LoginPopup } from "@/components";
 import DemoNavbar from "@/components/Navbars/DemoNavbar.js";
 import SimpleFooter from "@/components/Footers/SimpleFooter.js";
 import { setCookie, getCookie, removeCookie } from '@/admin/cookie';
-import { BoardContent } from '@/components';
+import { BoardContent, Reply} from '@/components';
 
 //css load
 import { Container, Row, Col, Card, Button, Breadcrumb, BreadcrumbItem } from "reactstrap";
@@ -190,9 +190,19 @@ class Post extends React.Component {
                                 </Row>
                                 <Row>
                                     <Col id="board_interaction">
-                                        <Comment id="board_interaction_content" count={val.comment_count}/>
+                                        <Comment id="board_interaction_content" post_idx={val.idx}/>
                                         <Shared id="board_interaction_content"/>
                                         <Settings id="board_interaction_content"/>
+                                    </Col>
+                                </Row>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md="1" xs="1"></Col>
+                            <Col md="10" xs="10">
+                                <Row>
+                                    <Col id="board_interaction">
+                                        <Reply post_idx={val.idx}/>
                                     </Col>
                                 </Row>
                             </Col>
