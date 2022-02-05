@@ -145,7 +145,6 @@ router.post('/like', function(req, res) {
     } else {
         res.send(JSON.stringify({ success: false, data: ''}));
     }
-
 });
 
 // 댓글

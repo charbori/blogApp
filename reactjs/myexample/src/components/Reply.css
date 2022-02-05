@@ -8,3 +8,9 @@
     font-size: small;
     margin-left: 12px;
 }
+
+.reply-btn {
+    margin-left: 40px;
+    font-size: small;
+    color: gray;
+}

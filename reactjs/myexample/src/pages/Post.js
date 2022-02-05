@@ -202,7 +202,7 @@ class Post extends React.Component {
                             <Col md="10" xs="10">
                                 <Row>
                                     <Col id="board_interaction">
-                                        <Reply post_idx={val.idx}/>
+                                        <Reply key={'reply_' + val.idx} post_idx={val.idx}/>
                                     </Col>
                                 </Row>
                             </Col>
