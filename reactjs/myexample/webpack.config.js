@@ -8,7 +8,7 @@ const webpack = require('webpack');
 module.exports = {
 	name: 'myexample',
 	entry: './src/index.js',
-	mode: 'development',
+	//mode: 'development',
 	module: {
 		rules: [
 			{

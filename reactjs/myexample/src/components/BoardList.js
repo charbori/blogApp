@@ -8,7 +8,7 @@ import { Config } from '@/admin/config';
 import { setCookie, getCookie, removeCookie } from '@/admin/cookie';
 import { useRef } from 'react';
 import { useEffect } from 'react';
-import { LoginPopup } from "@/components";
+import { LoginPopup, Reply } from "@/components";
 
 const NODE_SERVER = Config.NODE_SERVER;
 
@@ -102,13 +102,9 @@ class BoardList extends Component {
     }
 
     onRemove = post_idx => {
-        console.log(post_idx);
         const data_filter = this.state.post_data.filter((data) =>
             data.idx != post_idx
         );
-
-        console.log('list1:' + data_filter);
-        console.log('list2:' + this.state.post_data);
 
         this.setState({
             post_data: data_filter 
@@ -208,7 +204,7 @@ class BoardList extends Component {
                                 </Row>
                                 <Row>
                                     <Col id="board_interaction">
-                                        <Comment id="board_interaction_content" count={val.comment_count}/>
+                                        <Comment id="board_interaction_content" post_idx={val.idx}/>
                                         <Shared id="board_interaction_content" post_idx={val.idx}/>
                                         <Settings id="board_interaction_content" removeFunc={this.onRemove} post_idx={val.idx} history={history}/>
                                     </Col>

@@ -122,6 +122,16 @@ class Post extends React.Component {
         });
     }
 
+    onRemove = post_idx => {
+        const data_filter = this.state.post_data.filter((data) =>
+            data.idx != post_idx
+        );
+
+        this.setState({
+            post_data: data_filter 
+        });
+    }
+
     render() {
         var post_list = '';
         if (this.state.post_data == '') {
@@ -192,7 +202,7 @@ class Post extends React.Component {
                                     <Col id="board_interaction">
                                         <Comment id="board_interaction_content" post_idx={val.idx}/>
                                         <Shared id="board_interaction_content"/>
-                                        <Settings id="board_interaction_content"/>
+                                        <Settings id="board_interaction_content" removeFunc={this.onRemove} post_idx={val.idx} history={history}/>
                                     </Col>
                                 </Row>
                             </Col>
