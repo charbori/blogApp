@@ -15,6 +15,7 @@ exports.addReply = function(req, res) {
         res.send(result);
         return false;
     }
+    
     var sql = "";
     var post_idx = req.body.post_id;
     var contents = req.body.contents;
@@ -30,7 +31,6 @@ exports.addReply = function(req, res) {
                     now(),                  \
                     '0',                    \
                     '" + ip_addr + "')";
-    console.log(sql);
 
     db.query(sql, function (error, results, fields) {
         if (error) {
@@ -57,13 +57,15 @@ exports.delReply = function(req, res) {
         res.send(result);
         return false;
     }
+
     var sql = '';
     const post_id = req.body.post_id;
     const reply_id = req.body.reply_id;
+
     sql =  "DELETE  FROM reply                          \
              WHERE  post_id='" + post_id + "'           \
                AND  reply_id='" + reply_id + "'";
-    console.log(sql);
+    
     db.query(sql, function (error, results, fields) {
         if (error) {
             console.log(error);
@@ -86,6 +88,7 @@ exports.modReply = function(req, res) {
         res.send(result);
         return false;
     }
+
     var sql = "";
     var post_idx = req.body.post_id;
     var contents = req.body.contents;
@@ -95,7 +98,7 @@ exports.modReply = function(req, res) {
                 SET reply_contents = '" + contents + "' \
               WHERE reply_id='" + reply_id + "'         \
                 AND post_id='" + post_idx + "'";
-    console.log(sql);
+
     db.query(sql, function (error, results, fields) {
         if (error) {
             console.log(error);
@@ -115,12 +118,15 @@ exports.getReply = function(req, res) {
         res.send(result);
         return false;
     }
+
     var sql = "";
     var post_idx = req.query.post_id;
     var params = '*';
+
     if (Object.keys(req.query).includes('type') && req.query.type == 'count') {
         params = 'count(*) AS cnt';
     }
+
     sql = "SELECT " + params + "            \
             FROM reply                      \
            WHERE post_id='" + post_idx + "'";

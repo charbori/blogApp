@@ -23,14 +23,12 @@ function Reply(props) {
         var get_param = 'post_id=' + props.post_idx;
         //get_param = (user_id == '##GUEST') ? get_param : get_param + '&user_id=' + user_id;
 
-        console.log (contents);
         fetch(NODE_SERVER + 'board/reply?' + get_param, {
             method : 'GET',
             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
         })
         .then (response => response.json())
         .then (data => {
-            console.log (data);
             setContents(data);
         });
 
@@ -38,7 +36,6 @@ function Reply(props) {
         .then(res => res.json())
         .then(json => {
             setIp(json.ip);
-            console.log(json);
         });
     }, [send]);
 
@@ -80,7 +77,6 @@ function Reply(props) {
                 }
             })
             .then (data => {
-                console.log (data);
                 if (data.success == false) {
                     alert('잠시후에 다시 시도해주세요.');
                 }
@@ -97,7 +93,7 @@ function Reply(props) {
                 alert('수정할 댓글을 다시 선택해주세요.');
                 return;
             }
-            console.log('modify reply');
+
             fetch (NODE_SERVER + 'board/reply/mod', {
                 method: "POST",
                 body: JSON.stringify({
@@ -118,7 +114,6 @@ function Reply(props) {
                 }
             })
             .then (data => {
-                console.log (data);
                 if (data.success == false) {
                     alert('잠시후에 다시 시도해주세요.');
                 }
@@ -136,8 +131,6 @@ function Reply(props) {
     }
 
     function deleteReply(user_id, reply_id, ip_addr) {
-        console.log (user_id + " / " + reply_id + " / " + postIdx + " / " + ip + " / " + ip_addr);
-
         if (ip.length == 0 || ip == undefined || ip == null) {
             fetch('https://geoip-db.com/json')
             .then(res => res.json())
@@ -146,7 +139,6 @@ function Reply(props) {
             });
             alert('잠시후에 다시 시도해주세요.');
         } else if ((user_id == '##GUEST' && ip == ip_addr) || user_id == getCookie('chatApp_user_id')) {
-            console.log('do del');
             fetch (NODE_SERVER + 'board/reply/del', {
                 method: "POST",
                 body: JSON.stringify({
@@ -158,7 +150,6 @@ function Reply(props) {
             })
             .then (response => response.json())
             .then (data => {
-                console.log (data);
                 if (data.success == false) {
                     alert('잠시후에 다시 시도해주세요.');
                 }
@@ -169,8 +160,6 @@ function Reply(props) {
     }
 
     function modHandler (reply_id) {
-        // todo modify fetch
-        console.log('do mod');
         setModId(reply_id);
         setReplyType('mod');
         setSend(send + 1);
