@@ -66,6 +66,8 @@ reactjs/myexample/package-lock.json
 reactjs/myexample/src/assets/fontawesome_free_5.15.4
 reactjs/myexample/dist
 reactjs/myexample/public
+reactjs/myexample/.babelrc
+
 *.lock
 nodejs/app/node_modules
 nodejs/app/package-lock.json

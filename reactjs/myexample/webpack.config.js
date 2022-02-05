@@ -4,11 +4,12 @@ const srcDir = path.resolve(__dirname, './src');
 const publicDir = path.resolve(__dirname, './public');
 const RefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const webpack = require('webpack');
+const isDevelopment = process.env.NODE_ENV !== 'production';
 
 module.exports = {
 	name: 'myexample',
 	entry: './src/index.js',
-	//mode: 'development',
+	mode: isDevelopment ? 'development' : 'production',
 	module: {
 		rules: [
 			{
@@ -18,7 +19,7 @@ module.exports = {
 					loader: 'babel-loader',
 					options: {
 						presets: ['@babel/preset-env',"@babel/preset-react"],
-						plugins: ['react-refresh/babel']
+						plugins: isDevelopment ? ['react-refresh/babel'] : []
 					}
 				}
 			},
@@ -53,8 +54,8 @@ module.exports = {
 	],
 	*/
 	plugins : [
-		new webpack.HotModuleReplacementPlugin(),
-		new RefreshWebpackPlugin()
+		isDevelopment && new webpack.HotModuleReplacementPlugin(),
+		isDevelopment && new RefreshWebpackPlugin()
 	],
 	devServer: {
 		contentBase: __dirname + '/public/',
