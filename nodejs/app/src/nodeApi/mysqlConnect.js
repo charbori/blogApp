@@ -31,7 +31,8 @@ function handleDisconnect() {
         if (err.code === 'PROTOCOL_CONNECTION_LOST') {
             return handleDisconnect();
         } else {
-            throw err;
+	    console.log(err);
+            return handleDisconnect();
         }
     });
 }
